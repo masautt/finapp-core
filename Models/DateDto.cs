@@ -1,5 +1,8 @@
-﻿namespace Models;
+﻿using Microsoft.EntityFrameworkCore;
 
+namespace Models;
+
+[Owned]
 public class DateRangeFields
 {
     public DateTime StartDate { get; set; }
@@ -8,6 +11,7 @@ public class DateRangeFields
     public DateTime EndDate { get; set; }
 }
 
+[Owned]
 public class ExactDateFields
 {
     public int Year { get; set; }

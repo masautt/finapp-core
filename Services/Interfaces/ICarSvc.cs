@@ -2,11 +2,6 @@
 
 namespace Services.Interfaces;
 
-public interface ICarSvc
+public interface ICarSvc : IBaseSvc<CarDto>
 {
-    Task<List<CarDto>> GetCarRows();
-    Task<int> GetCarCount();
-    Task<CarDto?> GetCarRowById(string id);
-    Task<List<CarDto>> GetCarRowsByDateRange(DateTime start, DateTime end);
-    Task<List<CarDto>> GetCarRowsByNum(int min, int max);
 }
