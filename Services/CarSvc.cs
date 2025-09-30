@@ -1,36 +1,22 @@
 ﻿using Models;
+using Repos;
 using Repos.Interfaces;
 using Services.Interfaces;
 
 namespace Services;
 
-public class CarSvc(ICarRepo repo) : ICarSvc
+public class CarSvc(ICarRepo carRepo) : BaseSvc<CarDto, CarRepo>((CarRepo)carRepo), ICarSvc
 {
-    public Task<List<CarDto>> GetAllCarsAsync() => repo.FetchAllAsync();
+    public Task<List<CarDto>> GetCarRows() => carRepo.FetchAllAsync();
 
-    public Task<CarDto?> GetCarByIdAsync(string id) => repo.FetchByIdAsync(id);
+    public Task<int> GetCarCount() => GetTotalCount();
 
-    public Task<List<CarDto>> GetCarsByDateRangeAsync(DateTime start, DateTime end)
-        => repo.FetchByDateRangeAsync(start, end);
+    public Task<CarDto?> GetCarRowById(string id)
+        => GetById(id);
 
-    public Task<List<CarDto>> GetCarsByPaymentAmountAsync(decimal? min, decimal? max)
-        => repo.FetchByPaymentAmountAsync(min, max);
+    public Task<List<CarDto>> GetCarRowsByDateRange(DateTime start, DateTime end)
+        => GetByDateRangeAsync(c => c.DateRange.StartDate, start, end);
 
-    public Task<List<CarDto>> GetCarsByPrincipalAsync(decimal? min, decimal? max)
-        => repo.FetchByPrincipalAsync(min, max);
-
-    public Task<List<CarDto>> GetCarsByInterestAsync(decimal? min, decimal? max)
-        => repo.FetchByInterestAsync(min, max);
-
-    public Task<List<CarDto>> GetCarsByOwedAsync(decimal? min, decimal? max)
-        => repo.FetchByOwedAsync(min, max);
-
-    public Task<List<CarDto>> GetCarsByInsuranceAmountAsync(decimal? min, decimal? max)
-        => repo.FetchByInsuranceAmountAsync(min, max);
-
-    public Task<List<CarDto>> GetCarsByMilesAddedAsync(decimal? min, decimal? max)
-        => repo.FetchByMilesAddedAsync(min, max);
-
-    public Task<List<CarDto>> GetCarsByTotalAsync(decimal? min, decimal? max)
-        => repo.FetchByTotalAsync(min, max);
+    public Task<List<CarDto>> GetCarRowsByNum(int min, int max)
+        => GetNumRangeAsync(c => c.Common.Number, min, max);
 }

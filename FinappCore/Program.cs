@@ -11,9 +11,6 @@ public static class FinappSvcFactory
 {
     private static string _connectionString;
 
-    /// <summary>
-    /// Must be called once before creating any services.
-    /// </summary>
     public static void Configure(string connectionString)
     {
         _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
