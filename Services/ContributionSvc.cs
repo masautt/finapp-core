@@ -1,58 +1,23 @@
-﻿using Database;
-using Microsoft.EntityFrameworkCore;
-using Models;
+﻿using Models;
+using Repos.Interfaces;
 using Services.Interfaces;
 
 namespace Services;
 
-public class ContributionSvc(AppDbContext dbContext) : IContributionSvc
+public class ContributionSvc(IContributionRepo repo) : IContributionSvc
 {
-    public async Task<List<ContributionDto>> GetAllContributionsAsync()
-    {
-        return await dbContext.Contributions.ToListAsync();
-    }
+    public Task<List<ContributionDto>> GetAllContributionsAsync() => repo.FetchAllAsync();
 
-    public async Task<ContributionDto?> GetContributionByIdAsync(string id)
-    {
-        return await dbContext.Contributions
-            .FirstOrDefaultAsync(c => c.Common.Id == id);
-    }
+    public Task<ContributionDto?> GetContributionByIdAsync(string id) => repo.FetchByIdAsync(id);
 
-    public async Task<List<ContributionDto>> GetContributionsByDateAsync(DateTime date)
-    {
-        return await dbContext.Contributions
-            .Where(c => c.Date.Date.Date == date.Date)
-            .ToListAsync();
-    }
+    public Task<List<ContributionDto>> GetContributionsByDateAsync(DateTime date) => repo.FetchByDateAsync(date);
 
-    public async Task<List<ContributionDto>> GetContributionsByYearAsync(int year)
-    {
-        return await dbContext.Contributions
-            .Where(c => c.Date.Year == year)
-            .ToListAsync();
-    }
+    public Task<List<ContributionDto>> GetContributionsByYearAsync(int year) => repo.FetchByYearAsync(year);
 
-    public async Task<List<ContributionDto>> GetContributionsByAmountRangeAsync(decimal? min, decimal? max)
-    {
-        var query = dbContext.Contributions.AsQueryable();
+    public Task<List<ContributionDto>> GetContributionsByAmountRangeAsync(decimal? min, decimal? max)
+        => repo.FetchByAmountRangeAsync(min, max);
 
-        if (min.HasValue) query = query.Where(c => c.Amount >= min.Value);
-        if (max.HasValue) query = query.Where(c => c.Amount <= max.Value);
+    public Task<List<ContributionDto>> GetContributionsByAccountAsync(string account) => repo.FetchByAccountAsync(account);
 
-        return await query.ToListAsync();
-    }
-
-    public async Task<List<ContributionDto>> GetContributionsByAccountAsync(string account)
-    {
-        return await dbContext.Contributions
-            .Where(c => c.Account == account)
-            .ToListAsync();
-    }
-
-    public async Task<List<ContributionDto>> GetExcludedContributionsAsync()
-    {
-        return await dbContext.Contributions
-            .Where(c => c.Exclude == true)
-            .ToListAsync();
-    }
+    public Task<List<ContributionDto>> GetExcludedContributionsAsync() => repo.FetchExcludedAsync();
 }
