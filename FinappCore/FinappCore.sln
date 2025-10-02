@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36518.9 d17.14
+VisualStudioVersion = 17.14.36518.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinappCore", "FinappCore.csproj", "{248048E1-6E50-4095-9003-553FEB85C287}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "..\Database\Database.csproj", "{50B1D339-719B-4374-963E-B65077C8087C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "..\Services\Services.csproj", "{5C851CF9-51EB-4B26-BD37-4C058C09BAA3}"
@@ -23,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{248048E1-6E50-4095-9003-553FEB85C287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{248048E1-6E50-4095-9003-553FEB85C287}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{248048E1-6E50-4095-9003-553FEB85C287}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{248048E1-6E50-4095-9003-553FEB85C287}.Release|Any CPU.Build.0 = Release|Any CPU
 		{50B1D339-719B-4374-963E-B65077C8087C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{50B1D339-719B-4374-963E-B65077C8087C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50B1D339-719B-4374-963E-B65077C8087C}.Release|Any CPU.ActiveCfg = Release|Any CPU

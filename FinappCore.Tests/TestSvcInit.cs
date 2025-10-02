@@ -1,15 +1,19 @@
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Services;
 
 namespace FinappCore.Tests;
 
 public static class TestServiceInitializer
 {
-    private static bool _isConfigured;
+    private static ServiceProvider? _provider;
 
-    public static void ConfigureFactory()
+    // Call this before your tests to get the service provider
+    public static ServiceProvider? GetServiceProvider()
     {
-        if (_isConfigured) return;
+        if (_provider != null) return _provider;
 
+        // Load configuration
         var configuration = new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -17,8 +21,14 @@ public static class TestServiceInitializer
             .Build();
 
         var connectionString = configuration.GetConnectionString("Database");
-        FinappSvcFactory.Configure(connectionString);
 
-        _isConfigured = true;
+        // Build DI container
+        if (connectionString != null) _provider = ServiceProviderFactory.BuildServiceProvider(connectionString);
+
+        return _provider;
     }
+
+    // Helper to directly get a service
+    public static T GetService<T>() where T : notnull
+        => GetServiceProvider().GetRequiredService<T>();
 }

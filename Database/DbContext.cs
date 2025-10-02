@@ -1,6 +1,6 @@
 ﻿using Database.Config;
 using Microsoft.EntityFrameworkCore;
-using Models;
+using Models.Tables;
 
 namespace Database;
 
