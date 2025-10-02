@@ -1,8 +1,4 @@
-﻿// BudgetRepo.cs
-
-using Database;
-using Microsoft.EntityFrameworkCore;
-using Models.Tables;
+﻿using Database;
 using Repos.Interfaces;
 
 namespace Repos.Tables;

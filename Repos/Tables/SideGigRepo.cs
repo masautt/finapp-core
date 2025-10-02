@@ -1,6 +1,4 @@
-﻿using Database;
-using Microsoft.EntityFrameworkCore;
-using Repos.Interfaces;
+﻿using Repos.Interfaces;
 
 namespace Repos.Tables;
 

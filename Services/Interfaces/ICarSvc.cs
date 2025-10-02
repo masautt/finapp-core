@@ -1,7 +1,8 @@
-﻿using Models.Tables;
+﻿using Services.Shared;
 
 namespace Services.Interfaces;
 
-public interface ICarSvc : IBaseSvc<CarDto>
+public interface ICarSvc : ICommonSvc
 {
+    // Car-specific service methods go here
 }

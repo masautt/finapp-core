@@ -1,12 +1,13 @@
 ﻿using Repos.Shared;
+using Services.Interfaces;
 
 namespace Services.Shared;
 
-public class CommonSvc(CommonRepo repo)
+public class CommonSvc(CommonRepo commonRepo) : ICommonSvc
 {
     public Task<TEntity?> FetchById<TEntity, TKey>(TKey id) where TEntity : class
-        => repo.FetchById<TEntity, TKey>(id);
+        => commonRepo.FetchById<TEntity, TKey>(id);
 
     public Task<int> FetchTotalCount<TEntity>() where TEntity : class
-        => repo.FetchTotalCount<TEntity>();
+        => commonRepo.FetchTotalCount<TEntity>();
 }
