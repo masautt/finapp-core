@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Models.Tables;
 using Repos.Shared;
-using Xunit;
+using Services.Shared;
 
 namespace FinappCore.Tests.SvcTests;
 
@@ -29,3 +29,5 @@ public class CommonSvcTests
         Assert.True(total >= 0, "Total count should be non-negative");
     }
 }
+
+public class CommonSvcWrapper(CommonRepo commonRepo) : CommonSvc(commonRepo);

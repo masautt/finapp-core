@@ -44,7 +44,6 @@ public class CarConfig : IEntityTypeConfiguration<CarDto>
         entity.Property(e => e.StartMiles).HasColumnName(ColumnConstants.StartMiles);
         entity.Property(e => e.MilesAdded).HasColumnName(ColumnConstants.MilesAdded);
         entity.Property(e => e.MilesDate).HasColumnName(ColumnConstants.MilesDate);
-        entity.Property(e => e.Total).HasColumnName(ColumnConstants.TotalCar);
     }
 
 }

@@ -19,6 +19,4 @@ public class CarDto
     public decimal? StartMiles { get; set; }
     public decimal? MilesAdded { get; set; }
     public DateTime? MilesDate { get; set; }
-    public decimal Total { get; set; }
-
 }

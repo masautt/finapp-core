@@ -53,7 +53,6 @@ public static class ColumnConstants
     public const string StartMiles = "start_miles";
     public const string MilesAdded = "miles_added";
     public const string MilesDate = "miles_date";
-    public const string TotalCar = "total_car";
 
     // Paycheck-specific
     public const string Source = "source";

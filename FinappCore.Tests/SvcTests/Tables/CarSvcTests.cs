@@ -2,7 +2,7 @@
 using Models.Tables;
 using Services.Interfaces;
 
-namespace FinappCore.Tests.SvcTests;
+namespace FinappCore.Tests.SvcTests.Tables;
 
 public class CarSvcTests
 {
