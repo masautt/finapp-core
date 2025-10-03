@@ -12,7 +12,7 @@ public class PaycheckConfig : IEntityTypeConfiguration<PaycheckDto>
 
         // Define a shadow property as the primary key
         entity.Property<string>(ColumnConstants.CommonId)
-            .HasColumnName(ColumnConstants.Id);
+              .HasColumnName(ColumnConstants.Id);
 
         entity.HasKey(ColumnConstants.CommonId); // shadow PK
 
@@ -54,5 +54,35 @@ public class PaycheckConfig : IEntityTypeConfiguration<PaycheckDto>
         entity.Property(e => e.MedicalInsurance).HasColumnName(ColumnConstants.MedicalInsurance);
         entity.Property(e => e.PensionCont).HasColumnName(ColumnConstants.PensionCont);
         entity.Property(e => e.RetireeTrust).HasColumnName(ColumnConstants.RetireeTrust);
+
+        // Map Union / Benefits
+        entity.Property(e => e.AtDuesIbt).HasColumnName(ColumnConstants.AtDuesIbt);
+        entity.Property(e => e.AtSuppDd).HasColumnName(ColumnConstants.AtSuppDd);
+        entity.Property(e => e.AtSuppLife).HasColumnName(ColumnConstants.AtSuppLife);
+        entity.Property(e => e.AtSurviveBen).HasColumnName(ColumnConstants.AtSurviveBen);
+        entity.Property(e => e.DefComp457401a).HasColumnName(ColumnConstants.DefComp457401a);
+        entity.Property(e => e.PbDppoBTx).HasColumnName(ColumnConstants.PbDppoBTx);
+        entity.Property(e => e.Fmla).HasColumnName(ColumnConstants.Fmla);
+        entity.Property(e => e.PbKaiserBTax).HasColumnName(ColumnConstants.PbKaiserBTax);
+        entity.Property(e => e.PbLifeCoPd).HasColumnName(ColumnConstants.PbLifeCoPd);
+        entity.Property(e => e.PbPension).HasColumnName(ColumnConstants.PbPension);
+        entity.Property(e => e.PbStDis).HasColumnName(ColumnConstants.PbStDis);
+        entity.Property(e => e.PbSurviveB).HasColumnName(ColumnConstants.PbSurviveB);
+        entity.Property(e => e.PbVisionGen).HasColumnName(ColumnConstants.PbVisionGen);
+        entity.Property(e => e.PbWcCler).HasColumnName(ColumnConstants.PbWcCler);
+
+        // Map Accruals
+        entity.Property(e => e.HolidayEarned).HasColumnName(ColumnConstants.HolidayEarned);
+        entity.Property(e => e.HolidayTaken).HasColumnName(ColumnConstants.HolidayTaken);
+        entity.Property(e => e.HolidayAdjust).HasColumnName(ColumnConstants.HolidayAdjust);
+        entity.Property(e => e.HolidayCurrent).HasColumnName(ColumnConstants.HolidayCurrent);
+        entity.Property(e => e.SickEarned).HasColumnName(ColumnConstants.SickEarned);
+        entity.Property(e => e.SickTaken).HasColumnName(ColumnConstants.SickTaken);
+        entity.Property(e => e.SickAdjust).HasColumnName(ColumnConstants.SickAdjust);
+        entity.Property(e => e.SickCurrent).HasColumnName(ColumnConstants.SickCurrent);
+        entity.Property(e => e.VacationEarned).HasColumnName(ColumnConstants.VacationEarned);
+        entity.Property(e => e.VacationTaken).HasColumnName(ColumnConstants.VacationTaken);
+        entity.Property(e => e.VacationAdjust).HasColumnName(ColumnConstants.VacationAdjust);
+        entity.Property(e => e.VacationCurrent).HasColumnName(ColumnConstants.VacationCurrent);
     }
 }

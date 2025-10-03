@@ -3,7 +3,7 @@ using Models.Tables;
 using Repos.Shared;
 using Services.Shared;
 
-namespace FinappCore.Tests.SvcTests;
+namespace FinappCore.Tests.SvcTests.Shared;
 
 public class CommonSvcTests
 {
@@ -27,6 +27,17 @@ public class CommonSvcTests
 
         // Assert
         Assert.True(total >= 0, "Total count should be non-negative");
+    }
+
+    [Fact]
+    public async Task GetLastRecord_ReturnsRecordWithHighestNumber()
+    {
+        // Act
+        var lastRecord = await _svc.GetLastRecord<CarDto>(c => c.Common.Number);
+
+        // Assert
+        Assert.NotNull(lastRecord);
+        Assert.True(lastRecord.Common.Number > 0, "Last record should have a positive number");
     }
 }
 

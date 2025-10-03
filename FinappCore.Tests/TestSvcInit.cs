@@ -57,6 +57,7 @@ public static class TestServiceInitializer
 
         // Services
         services.AddScoped<ICarSvc, CarSvc>();
+        services.AddScoped<IPaycheckSvc, PaycheckSvc>();
         services.AddScoped<DateSvc>();
         services.AddScoped<CommonSvc>();
 

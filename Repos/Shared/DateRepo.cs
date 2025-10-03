@@ -26,7 +26,6 @@ public class DateRepo
     {
         if (start > end) throw new ArgumentException("Start date must be before end date.");
 
-        // Build the EF-friendly expression: x => x.DateRange.StartDate <= end && x.DateRange.EndDate >= start
         var param = dateSelector.Parameters[0];
 
         var startProp = Expression.Property(dateSelector.Body, nameof(DateRangeFields.StartDate));
@@ -42,24 +41,33 @@ public class DateRepo
         return await _dbContext.Set<T>().Where(lambda).ToListAsync();
     }
 
-    public async Task<List<T>> FetchByExactDateRange<T>(
+    public async Task<List<T>> FetchByDateRangeWithExactDateFields<T>(
         DateTime start,
         DateTime end,
-        Expression<Func<T, DateTime>> dateSelector
+        Expression<Func<T, ExactDateFields>> exactDateSelector
     ) where T : class
     {
-        if (start > end) throw new ArgumentException("Start date must be before end date.");
+        var entityParam = Expression.Parameter(typeof(T), "entity");
 
-        // Directly build expression: x => x.PaymentDate >= start && x.PaymentDate <= end
-        var param = dateSelector.Parameters[0];
+        // entity.Date (ExactDateFields)
+        var dateFieldAccess = Expression.Invoke(exactDateSelector, entityParam);
 
-        var body = Expression.AndAlso(
-            Expression.GreaterThanOrEqual(dateSelector.Body, Expression.Constant(start)),
-            Expression.LessThanOrEqual(dateSelector.Body, Expression.Constant(end))
-        );
+        // entity.Date.Date (the DateTime inside ExactDateFields)
+        var dateProperty = Expression.Property(dateFieldAccess, nameof(ExactDateFields.Date));
 
-        var lambda = Expression.Lambda<Func<T, bool>>(body, param);
+        // start <= entity.Date.Date
+        var greaterThanOrEqual = Expression.GreaterThanOrEqual(dateProperty, Expression.Constant(start, typeof(DateTime)));
 
-        return await _dbContext.Set<T>().Where(lambda).ToListAsync();
+        // entity.Date.Date <= end
+        var lessThanOrEqual = Expression.LessThanOrEqual(dateProperty, Expression.Constant(end, typeof(DateTime)));
+
+        // Combine into (start <= entity.Date.Date && entity.Date.Date <= end)
+        var body = Expression.AndAlso(greaterThanOrEqual, lessThanOrEqual);
+
+        var lambda = Expression.Lambda<Func<T, bool>>(body, entityParam);
+
+        return await _dbContext.Set<T>()
+            .Where(lambda)
+            .ToListAsync();
     }
 }

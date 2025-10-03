@@ -20,10 +20,10 @@ public class DateSvc
     ) where T : class
         => _dateRepo.FetchByDateRange(start, end, dateSelector);
 
-    public Task<List<T>> FetchByExactDateRange<T>(
+    public Task<List<T>> FetchByDateRangeWithExactDateFields<T>(
         DateTime start,
         DateTime end,
-        Expression<Func<T, DateTime>> dateSelector
+        Expression<Func<T, ExactDateFields>> exactDateSelector
     ) where T : class
-        => _dateRepo.FetchByExactDateRange(start, end, dateSelector);
+        => _dateRepo.FetchByDateRangeWithExactDateFields(start, end, exactDateSelector);
 }

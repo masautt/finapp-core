@@ -1,8 +1,6 @@
-﻿using Models.Tables;
-
-namespace Services.Interfaces;
+﻿namespace Services.Interfaces;
 
 public interface IPaycheckSvc
 {
-
+    Task<object?> GetLatestTimeOff();
 }

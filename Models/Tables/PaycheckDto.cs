@@ -29,4 +29,34 @@ public class PaycheckDto
     public decimal? MedicalInsurance { get; set; }
     public decimal? PensionCont { get; set; }
     public decimal? RetireeTrust { get; set; }
+
+    // Union / Benefits
+    public decimal? AtDuesIbt { get; set; }
+    public decimal? AtSuppDd { get; set; }
+    public decimal? AtSuppLife { get; set; }
+    public decimal? AtSurviveBen { get; set; }
+    public decimal? DefComp457401a { get; set; }
+    public decimal? PbDppoBTx { get; set; }
+    public decimal? Fmla { get; set; }
+    public decimal? PbKaiserBTax { get; set; }
+    public decimal? PbLifeCoPd { get; set; }
+    public decimal? PbPension { get; set; }
+    public decimal? PbStDis { get; set; }
+    public decimal? PbSurviveB { get; set; }
+    public decimal? PbVisionGen { get; set; }
+    public decimal? PbWcCler { get; set; }
+
+    // Accruals
+    public decimal? HolidayEarned { get; set; }
+    public decimal? HolidayTaken { get; set; }
+    public decimal? HolidayAdjust { get; set; }
+    public decimal? HolidayCurrent { get; set; }
+    public decimal? SickEarned { get; set; }
+    public decimal? SickTaken { get; set; }
+    public decimal? SickAdjust { get; set; }
+    public decimal? SickCurrent { get; set; }
+    public decimal? VacationEarned { get; set; }
+    public decimal? VacationTaken { get; set; }
+    public decimal? VacationAdjust { get; set; }
+    public decimal? VacationCurrent { get; set; }
 }
