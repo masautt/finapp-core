@@ -31,10 +31,10 @@ public class CarSvcTests
     public async Task FetchById_ReturnsEntityIfExists()
     {
         // Arrange
-        const int testId = 1;
+        const string testId = "e4kwzs";
 
         // Act
-        var entity = await _svc.FetchById<CarDto, int>(testId);
+        var entity = await _svc.FetchById<CarDto, string>(testId);
 
         // Assert
         Assert.NotNull(entity);

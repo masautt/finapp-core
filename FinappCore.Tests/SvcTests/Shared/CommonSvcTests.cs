@@ -33,7 +33,7 @@ public class CommonSvcTests
     public async Task GetLastRecord_ReturnsRecordWithHighestNumber()
     {
         // Act
-        var lastRecord = await _svc.GetLastRecord<CarDto>(c => c.Common.Number);
+        var lastRecord = await _svc.GetLastRecord<CarDto>();
 
         // Assert
         Assert.NotNull(lastRecord);

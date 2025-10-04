@@ -9,7 +9,7 @@ public class PaycheckSvc(CommonSvc commonSvc) : IPaycheckSvc
 
     public async Task<object?> GetLatestTimeOff()
     {
-        var lastPaycheck = await commonSvc.GetLastRecord<PaycheckDto>(p => p.Common.Number);
+        var lastPaycheck = await commonSvc.GetLastRecord<PaycheckDto>();
 
         if (lastPaycheck == null)
             return null;

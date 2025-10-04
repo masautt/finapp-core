@@ -15,10 +15,12 @@ public class CommonSvc(CommonRepo commonRepo) : ICommonSvc
         => _commonRepo.FetchTotalCount<TEntity>();
 
     public Task<TEntity?> GetLastRecord<TEntity>(
-        Expression<Func<TEntity, int>> numberSelector,
         Expression<Func<TEntity, bool>>? predicate = null
     ) where TEntity : class
     {
-        return _commonRepo.GetLastRecord(numberSelector, predicate);
+        return _commonRepo.GetLastRecord(predicate);
     }
+
+    public Task<List<TEntity>> FetchByCustom<TEntity>(Dictionary<string, object> filters) where TEntity : class
+        => _commonRepo.FetchByCustom<TEntity>(filters);
 }
