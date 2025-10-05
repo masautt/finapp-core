@@ -10,7 +10,7 @@ public class PaycheckSvc(EntityRepo entityRepo)
 {
     public async Task<object?> GetLatestTimeOff()
     {
-        var lastPaycheck = await GetLastRecord();
+        var lastPaycheck = await FetchLatestRecord();
         if (lastPaycheck == null) return null;
 
         return new

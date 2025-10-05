@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Models.Tables;
 using Services.Interfaces;
 
 namespace FinappCore.Tests.SvcTests.Tables;
@@ -42,20 +41,68 @@ public class CarSvcTests
     }
 
     [Fact]
-    public async Task GetLastRecord_ReturnsRecordWithHighestNumber()
+    public async Task FetchByNumber_ReturnsCorrectEntity()
     {
-        var lastRecord = await _carSvc.GetLastRecord();
+        var lastRecord = await _carSvc.FetchLatestRecord();
+        if (lastRecord != null)
+        {
+            var fetched = await _carSvc.FetchByNumber(lastRecord.Common.Number);
+            Assert.NotNull(fetched);
+            Assert.Equal(lastRecord.Common.Number, fetched!.Common.Number);
+        }
+    }
+
+    [Fact]
+    public async Task FetchLatestRecord_ReturnsRecordWithHighestNumber()
+    {
+        var lastRecord = await _carSvc.FetchLatestRecord();
         Assert.NotNull(lastRecord);
         Assert.True(lastRecord.Common.Number > 0, "Last record should have a positive number");
     }
 
     [Fact]
-    public async Task FetchByCustom_ReturnsMatchingRecords()
+    public async Task FetchOldestRecord_ReturnsRecordWithLowestNumber()
     {
-        var filters = new Dictionary<string, object>();
+        var firstRecord = await _carSvc.FetchOldestRecord();
+        Assert.NotNull(firstRecord);
+        Assert.True(firstRecord.Common.Number > 0, "First record should have a positive number");
+    }
 
-        var results = await _carSvc.FetchByCustom(filters);
-        Assert.NotNull(results);
+    [Fact]
+    public async Task FetchLatestRecord_WithPredicate_FiltersCorrectly()
+    {
+        var latestEven = await _carSvc.FetchLatestRecord(x => x.Common.Number % 2 == 0);
+        Assert.NotNull(latestEven);
+        Assert.True(latestEven.Common.Number % 2 == 0);
+    }
+
+    [Fact]
+    public async Task FetchOldestRecord_WithPredicate_FiltersCorrectly()
+    {
+        var oldestOdd = await _carSvc.FetchOldestRecord(x => x.Common.Number % 2 != 0);
+        Assert.NotNull(oldestOdd);
+        Assert.True(oldestOdd!.Common.Number % 2 != 0);
+    }
+
+    [Fact]
+    public async Task FetchRandomRecord_ReturnsSomeRecord()
+    {
+        var randomRecord = await _carSvc.FetchRandomRecord();
+        Assert.NotNull(randomRecord);
+        Assert.True(randomRecord.Common.Number > 0);
+    }
+
+    [Fact]
+    public async Task FetchByCustom_ReturnsCorrectRecords()
+    {
+        // Example using new type-safe expression syntax
+        var records = await _carSvc.FetchByCustom(
+            (x => x.Common.Number, 1)
+        );
+
+        Assert.NotNull(records);
+        foreach (var r in records)
+            Assert.Equal(1, r.Common.Number);
     }
 
     [Fact]
@@ -92,5 +139,4 @@ public class CarSvcTests
         Assert.NotNull(results);
         Assert.Empty(results);
     }
-
 }

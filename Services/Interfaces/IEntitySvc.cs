@@ -8,8 +8,11 @@ public interface IEntitySvc<TEntity> where TEntity : class
     // CommonSvc methods
     Task<TEntity?> FetchById(string id);
     Task<int> FetchTotalCount();
-    Task<TEntity?> GetLastRecord();
-    Task<List<TEntity>> FetchByCustom(Dictionary<string, object> filters);
+    Task<TEntity?> FetchLatestRecord(Expression<Func<TEntity, bool>>? predicate = null);
+    Task<TEntity?> FetchOldestRecord(Expression<Func<TEntity, bool>>? predicate = null);
+    Task<TEntity?> FetchRandomRecord();
+    Task<TEntity?> FetchByNumber(int number);
+    Task<List<TEntity>> FetchByCustom(params (Expression<Func<TEntity, object>> selector, object value)[] filters);
 
     // DateSvc methods
     Task<List<TEntity>> FetchByDateRange(
