@@ -14,6 +14,11 @@ public interface IEntitySvc<TEntity> where TEntity : class
     Task<TEntity?> FetchByNumber(int number);
     Task<List<TEntity>> FetchByCustom(params (Expression<Func<TEntity, object>> selector, object value)[] filters);
 
+    Task<List<TResult>> FetchProjected<TResult>(
+        Expression<Func<TEntity, TResult>> selector,
+        Expression<Func<TEntity, bool>>? predicate = null
+    );
+
     // DateSvc methods
     Task<List<TEntity>> FetchByDateRange(
         DateTime start,

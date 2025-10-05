@@ -130,6 +130,18 @@ public class CommonRepo(AppDbContext dbContext)
             .ToListAsync();
     }
 
+    public async Task<List<TResult>> FetchProjected<TEntity, TResult>(
+        Expression<Func<TEntity, TResult>> selector,
+        Expression<Func<TEntity, bool>>? predicate = null
+    ) where TEntity : class
+    {
+        IQueryable<TEntity> query = dbContext.Set<TEntity>();
+        if (predicate != null)
+            query = query.Where(predicate);
+
+        return await query.Select(selector).ToListAsync();
+    }
+
     private class ParameterReplacer(ParameterExpression oldParameter, ParameterExpression newParameter)
         : ExpressionVisitor
     {

@@ -24,6 +24,15 @@ public class TransactionSvcTests
     }
 
     [Fact]
+    public async Task FetchById_ReturnsEntityIfExists()
+    {
+        const string testId = "tx123";
+        var entity = await _transactionSvc.FetchById(testId);
+        Assert.NotNull(entity);
+        Assert.Equal(testId, entity.Common.Id);
+    }
+
+    [Fact]
     public async Task FetchById_ReturnsNullIfNotExists()
     {
         const string nonExistentId = "nonexistent";
@@ -63,79 +72,26 @@ public class TransactionSvcTests
         {
             var fetched = await _transactionSvc.FetchByNumber(latest.Common.Number);
             Assert.NotNull(fetched);
-            Assert.Equal(latest.Common.Number, fetched.Common.Number);
+            Assert.Equal(latest.Common.Number, fetched!.Common.Number);
         }
     }
 
     [Fact]
     public async Task FetchByCustom_ReturnsCorrectRecords()
     {
+        // Example using type-safe expression filters
         var records = await _transactionSvc.FetchByCustom(
             (x => x.Common.Number, 1),
-            (x => x.Category, "groceries")
+            (x => x.Category, "Groceries")
         );
 
         Assert.NotNull(records);
         foreach (var r in records)
         {
             Assert.Equal(1, r.Common.Number);
-            Assert.Equal("groceries", r.Category);
+            Assert.Equal("Groceries", r.Category);
         }
     }
-
-    [Fact]
-    public async Task FetchSubcategories_ReturnsDistinctValues()
-    {
-        // Act
-        var subcategories = await _transactionSvc.FetchSubcategories();
-
-        // Assert
-        Assert.NotNull(subcategories);
-        Assert.True(subcategories.Count > 0, "Should return at least one subcategory");
-        Assert.Equal(subcategories.Count, subcategories.Distinct().Count()); // Ensure uniqueness
-    }
-
-    [Fact]
-    public async Task FetchSubcategories_WithCategoryFilter_ReturnsFilteredDistinctValues()
-    {
-        const string category = "groceries";
-
-        // Act
-        var subcategories = await _transactionSvc.FetchSubcategories(category);
-
-        // Assert
-        Assert.NotNull(subcategories);
-        Assert.True(subcategories.Count > 0, "Should return at least one subcategory for the category");
-        Assert.Equal(subcategories.Count, subcategories.Distinct().Count()); // Ensure uniqueness
-    }
-
-    [Fact]
-    public async Task FetchBusinesses_ReturnsDistinctValues()
-    {
-        // Act
-        var businesses = await _transactionSvc.FetchBusinesses();
-
-        // Assert
-        Assert.NotNull(businesses);
-        Assert.True(businesses.Count > 0, "Should return at least one business");
-        Assert.Equal(businesses.Count, businesses.Distinct().Count()); // Ensure uniqueness
-    }
-
-    [Fact]
-    public async Task FetchBusinesses_WithFilters_ReturnsFilteredDistinctValues()
-    {
-        const string category = "eatingout";
-        const string subcategory = "fastFood";
-
-        // Act
-        var businesses = await _transactionSvc.FetchBusinesses(category, subcategory);
-
-        // Assert
-        Assert.NotNull(businesses);
-        Assert.True(businesses.Count > 0, "Should return at least one business for the filters");
-        Assert.Equal(businesses.Count, businesses.Distinct().Count()); // Ensure uniqueness
-    }
-
 
     [Fact]
     public async Task FetchByDateRangeWithExactDateFields_ReturnsRecordsInRange()

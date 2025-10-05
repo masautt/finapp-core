@@ -46,4 +46,9 @@ public abstract class EntitySvc<TEntity>(EntityRepo entityRepo) : IEntitySvc<TEn
         DateTime end,
         Expression<Func<TEntity, ExactDateFields>> exactDateSelector)
         => _dateSvc.FetchByDateRangeWithExactDateFields(start, end, exactDateSelector);
+
+    public virtual Task<List<TResult>> FetchProjected<TResult>(
+        Expression<Func<TEntity, TResult>> selector,
+        Expression<Func<TEntity, bool>>? predicate = null
+    ) => _commonSvc.FetchProjected(selector, predicate);
 }
