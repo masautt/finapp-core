@@ -2,7 +2,4 @@
 
 namespace Services.Interfaces;
 
-public interface IInvestmentSvc
-{
-
-}
+public interface IInvestmentSvc : IEntitySvc<InvestmentDto>;

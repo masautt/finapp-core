@@ -2,7 +2,4 @@
 
 namespace Services.Interfaces;
 
-public interface IHousingSvc
-{
-
-}
+public interface IHousingSvc : IEntitySvc<HousingDto>;

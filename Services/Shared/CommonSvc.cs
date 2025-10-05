@@ -1,9 +1,8 @@
 ﻿using Repos.Shared;
-using Services.Interfaces;
 
 namespace Services.Shared;
 
-public class CommonSvc<TEntity>(CommonRepo repo) : ICommonSvc<TEntity> where TEntity : class
+public class CommonSvc<TEntity>(CommonRepo repo) where TEntity : class
 {
     private readonly CommonRepo _repo = repo ?? throw new ArgumentNullException(nameof(repo));
 

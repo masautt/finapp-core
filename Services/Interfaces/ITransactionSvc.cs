@@ -2,7 +2,4 @@
 
 namespace Services.Interfaces;
 
-public interface ITransactionSvc
-{
-
-}
+public interface ITransactionSvc : IEntitySvc<TransactionDto>;

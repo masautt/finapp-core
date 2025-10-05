@@ -2,7 +2,4 @@
 
 namespace Services.Interfaces;
 
-public interface ICarSvc : ICommonSvc<CarDto>
-{
-    // Car-specific methods only
-}
+public interface ICarSvc : IEntitySvc<CarDto>;

@@ -1,10 +1,9 @@
 ﻿using Models.Tables;
-using Repos.Interfaces;
+using Repos.Shared;
 using Services.Interfaces;
+using Services.Shared;
 
 namespace Services.Tables;
 
-public class TransactionSvc(ITransactionRepo transactionRepo) : ITransactionSvc
-{
-    
-}
+public class TransactionSvc(EntityRepo entityRepo)
+    : EntitySvc<TransactionDto>(entityRepo), ITransactionSvc;

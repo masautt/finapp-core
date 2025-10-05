@@ -1,11 +1,8 @@
 ﻿using Models.Tables;
-using Repos;
-using Repos.Interfaces;
+using Repos.Shared;
 using Services.Interfaces;
+using Services.Shared;
 
 namespace Services.Tables;
 
-public class BudgetSvc(IBudgetRepo budgetRepo) : IBudgetSvc
-{
-
-}
+public class BudgetSvc(EntityRepo entityRepo) : EntitySvc<BudgetDto>(entityRepo), IBudgetSvc;

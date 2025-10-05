@@ -2,7 +2,4 @@
 
 namespace Services.Interfaces;
 
-public interface IBudgetSvc
-{
-
-}
+public interface IBudgetSvc : IEntitySvc<BudgetDto>;

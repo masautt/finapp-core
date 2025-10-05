@@ -5,6 +5,7 @@ using Services.Shared;
 
 namespace FinappCore.Tests.SvcTests.Shared;
 
+[Collection("Database")]
 public class CommonSvcTests
 {
     private readonly CommonSvcWrapper _svc;

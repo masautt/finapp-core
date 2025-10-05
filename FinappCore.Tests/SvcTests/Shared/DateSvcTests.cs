@@ -4,9 +4,11 @@ using Services.Shared;
 
 namespace FinappCore.Tests.SvcTests.Shared;
 
+[Collection("Database")]
 public class DateSvcTests
 {
-    private readonly DateSvc _svc;
+    private readonly DateSvc<CarDto> _carDateSvc;
+    private readonly DateSvc<ContributionDto> _contributionDateSvc;
 
     public DateSvcTests()
     {
@@ -14,7 +16,8 @@ public class DateSvcTests
         if (provider == null)
             throw new InvalidOperationException("Service provider could not be initialized.");
 
-        _svc = provider.GetRequiredService<DateSvc>();
+        _carDateSvc = provider.GetRequiredService<DateSvc<CarDto>>();
+        _contributionDateSvc = provider.GetRequiredService<DateSvc<ContributionDto>>();
     }
 
     [Fact]
@@ -25,7 +28,7 @@ public class DateSvcTests
         var end = new DateTime(2025, 1, 20, 23, 59, 59, DateTimeKind.Utc);
 
         // Act
-        var results = await _svc.FetchByDateRange<CarDto>(
+        var results = await _carDateSvc.FetchByDateRange(
             start,
             end,
             car => car.DateRange
@@ -48,7 +51,7 @@ public class DateSvcTests
         var end = new DateTime(2025, 1, 31, 23, 59, 59, DateTimeKind.Utc);
 
         // Act
-        var results = await _svc.FetchByDateRangeWithExactDateFields<ContributionDto>(
+        var results = await _contributionDateSvc.FetchByDateRangeWithExactDateFields(
             start,
             end,
             c => c.Date

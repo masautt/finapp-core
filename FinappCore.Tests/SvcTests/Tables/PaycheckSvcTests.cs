@@ -3,6 +3,7 @@ using Services.Interfaces;
 
 namespace FinappCore.Tests.SvcTests.Tables;
 
+[Collection("Database")]
 public class PaycheckSvcTests
 {
     private readonly IPaycheckSvc _svc;

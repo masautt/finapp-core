@@ -1,4 +1,4 @@
-﻿using Models.Tables;
+﻿namespace Models.Tables;
 
 public class SideGigDto
 {

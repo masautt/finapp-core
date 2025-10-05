@@ -1,6 +1,5 @@
-﻿namespace Services.Interfaces;
+﻿using Models.Tables;
 
-public interface ISideGigSvc
-{
+namespace Services.Interfaces;
 
-}
+public interface ISideGigSvc : IEntitySvc<SideGigDto>;

@@ -1,11 +1,8 @@
 ﻿using Database;
-using FinappCore.Tests.SvcTests.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Repos.Interfaces;
 using Repos.Shared;
-using Repos.Tables;
 using Services.Interfaces;
 using Services.Shared;
 using Services.Tables;
@@ -28,17 +25,12 @@ public static class TestServiceInitializer
             .Build();
 
         var connectionString = configuration.GetConnectionString("Database");
-
         if (connectionString != null)
             _provider = BuildServiceProvider(connectionString);
 
         return _provider;
     }
 
-    public static T GetService<T>() where T : notnull
-        => GetServiceProvider().GetRequiredService<T>();
-
-    // Moved ServiceProviderFactory logic here
     private static ServiceProvider BuildServiceProvider(string connectionString)
     {
         var services = new ServiceCollection();
@@ -49,20 +41,24 @@ public static class TestServiceInitializer
             .Options;
 
         // Register DbContext
-        services.AddSingleton(new AppDbContext(options));
+        services.AddScoped(_ => new AppDbContext(options));
 
-        // Repositories
-        services.AddScoped<ICarRepo, CarRepo>();
-        services.AddSingleton<CommonRepo>();
-        services.AddSingleton<DateRepo>();
+        // Base Repositories
+        services.AddScoped<CommonRepo>();
+        services.AddScoped<DateRepo>();
+        services.AddScoped<EntityRepo>();
 
-        // Services
-        services.AddScoped<ICarSvc, CarSvc>();
-        services.AddScoped<IPaycheckSvc, PaycheckSvc>();
-        services.AddScoped<DateSvc>();
+        // Base Services (optional, only if you use them directly elsewhere)
+        services.AddScoped(typeof(DateSvc<>));
         services.AddScoped(typeof(CommonSvc<>));
-        services.AddScoped<IPaycheckRepo, PaycheckRepo>();
 
+        // Concrete Services
+        services.AddScoped<IBudgetSvc, BudgetSvc>();
+        services.AddScoped<ICarSvc, CarSvc>();
+        services.AddScoped<IContributionSvc, ContributionSvc>();
+        services.AddScoped<IPaycheckSvc, PaycheckSvc>();
+        services.AddScoped<ISideGigSvc, SideGigSvc>();
+        services.AddScoped<ITransactionSvc, TransactionSvc>();
 
         return services.BuildServiceProvider();
     }

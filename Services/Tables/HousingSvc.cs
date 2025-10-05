@@ -1,10 +1,8 @@
 ﻿using Models.Tables;
-using Repos.Interfaces;
+using Repos.Shared;
 using Services.Interfaces;
+using Services.Shared;
 
 namespace Services.Tables;
 
-public class HousingSvc(IHousingRepo repo) : IHousingSvc
-{
-
-}
+public class HousingSvc(EntityRepo entityRepo) : EntitySvc<HousingDto>(entityRepo), IHousingSvc;

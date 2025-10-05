@@ -2,7 +2,7 @@
 
 namespace Services.Interfaces;
 
-public interface IPaycheckSvc : ICommonSvc<PaycheckDto>
+public interface IPaycheckSvc : IEntitySvc<PaycheckDto>
 {
     Task<object?> GetLatestTimeOff();
 }
