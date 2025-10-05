@@ -22,7 +22,6 @@ public class PaycheckSvcTests
         // Act
         var result = await _svc.GetLatestTimeOff();
 
-        // Assert
         Assert.NotNull(result);
     }
 }

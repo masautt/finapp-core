@@ -1,18 +1,21 @@
 ﻿using Models.Tables;
+using Repos.Interfaces;
+using Repos.Shared;
 using Services.Interfaces;
 using Services.Shared;
 
 namespace Services.Tables;
 
-public class PaycheckSvc(CommonSvc commonSvc) : IPaycheckSvc
+public class PaycheckSvc(IPaycheckRepo repo, CommonRepo commonRepo)
+    : CommonSvc<PaycheckDto>(commonRepo), IPaycheckSvc
 {
+    private readonly IPaycheckRepo _repo = repo;
 
     public async Task<object?> GetLatestTimeOff()
     {
-        var lastPaycheck = await commonSvc.GetLastRecord<PaycheckDto>();
+        var lastPaycheck = await GetLastRecord();
 
-        if (lastPaycheck == null)
-            return null;
+        if (lastPaycheck == null) return null;
 
         return new
         {

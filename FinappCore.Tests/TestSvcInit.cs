@@ -1,4 +1,5 @@
 ﻿using Database;
+using FinappCore.Tests.SvcTests.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,7 +60,9 @@ public static class TestServiceInitializer
         services.AddScoped<ICarSvc, CarSvc>();
         services.AddScoped<IPaycheckSvc, PaycheckSvc>();
         services.AddScoped<DateSvc>();
-        services.AddScoped<CommonSvc>();
+        services.AddScoped(typeof(CommonSvc<>));
+        services.AddScoped<IPaycheckRepo, PaycheckRepo>();
+
 
         return services.BuildServiceProvider();
     }

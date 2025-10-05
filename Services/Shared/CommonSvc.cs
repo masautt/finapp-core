@@ -1,26 +1,18 @@
 ﻿using Repos.Shared;
 using Services.Interfaces;
-using System.Linq.Expressions;
 
 namespace Services.Shared;
 
-public class CommonSvc(CommonRepo commonRepo) : ICommonSvc
+public class CommonSvc<TEntity>(CommonRepo repo) : ICommonSvc<TEntity> where TEntity : class
 {
-    private readonly CommonRepo _commonRepo = commonRepo ?? throw new ArgumentNullException(nameof(commonRepo));
+    private readonly CommonRepo _repo = repo ?? throw new ArgumentNullException(nameof(repo));
 
-    public Task<TEntity?> FetchById<TEntity, TKey>(TKey id) where TEntity : class
-        => _commonRepo.FetchById<TEntity, TKey>(id);
+    public Task<TEntity?> FetchById(string id) => _repo.FetchById<TEntity>(id);
 
-    public Task<int> FetchTotalCount<TEntity>() where TEntity : class
-        => _commonRepo.FetchTotalCount<TEntity>();
+    public Task<int> FetchTotalCount() => _repo.FetchTotalCount<TEntity>();
 
-    public Task<TEntity?> GetLastRecord<TEntity>(
-        Expression<Func<TEntity, bool>>? predicate = null
-    ) where TEntity : class
-    {
-        return _commonRepo.GetLastRecord(predicate);
-    }
+    public Task<TEntity?> GetLastRecord() => _repo.GetLastRecord<TEntity>();
 
-    public Task<List<TEntity>> FetchByCustom<TEntity>(Dictionary<string, object> filters) where TEntity : class
-        => _commonRepo.FetchByCustom<TEntity>(filters);
+    public Task<List<TEntity>> FetchByCustom(Dictionary<string, object> filters)
+        => _repo.FetchByCustom<TEntity>(filters);
 }

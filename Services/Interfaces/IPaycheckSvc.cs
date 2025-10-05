@@ -1,6 +1,8 @@
-﻿namespace Services.Interfaces;
+﻿using Models.Tables;
 
-public interface IPaycheckSvc
+namespace Services.Interfaces;
+
+public interface IPaycheckSvc : ICommonSvc<PaycheckDto>
 {
     Task<object?> GetLatestTimeOff();
 }

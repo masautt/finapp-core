@@ -1,8 +1,9 @@
 ﻿namespace Services.Interfaces;
 
-public interface ICommonSvc
+public interface ICommonSvc<TEntity> where TEntity : class
 {
-    Task<TEntity?> FetchById<TEntity, TKey>(TKey id) where TEntity : class;
-    Task<int> FetchTotalCount<TEntity>() where TEntity : class;
-    Task<List<TEntity>> FetchByCustom<TEntity>(Dictionary<string, object> filters) where TEntity : class;
+    Task<TEntity?> FetchById(string id);
+    Task<int> FetchTotalCount();
+    Task<TEntity?> GetLastRecord();
+    Task<List<TEntity>> FetchByCustom(Dictionary<string, object> filters);
 }

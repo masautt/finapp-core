@@ -7,9 +7,8 @@ using Services.Shared;
 namespace Services.Tables;
 
 public class CarSvc(ICarRepo repo, CommonRepo commonRepo)
-    : CommonSvc(commonRepo), ICarSvc
+    : CommonSvc<CarDto>(commonRepo), ICarSvc
 {
     private readonly ICarRepo _repo = repo;
 
-    // Car-specific methods can use _repo
 }

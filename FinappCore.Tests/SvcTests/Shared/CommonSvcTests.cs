@@ -23,7 +23,7 @@ public class CommonSvcTests
     public async Task FetchTotalCount_ReturnsNonNegative()
     {
         // Act
-        var total = await _svc.FetchTotalCount<CarDto>();
+        var total = await _svc.FetchTotalCount();
 
         // Assert
         Assert.True(total >= 0, "Total count should be non-negative");
@@ -33,7 +33,7 @@ public class CommonSvcTests
     public async Task GetLastRecord_ReturnsRecordWithHighestNumber()
     {
         // Act
-        var lastRecord = await _svc.GetLastRecord<CarDto>();
+        var lastRecord = await _svc.GetLastRecord();
 
         // Assert
         Assert.NotNull(lastRecord);
@@ -41,4 +41,4 @@ public class CommonSvcTests
     }
 }
 
-public class CommonSvcWrapper(CommonRepo commonRepo) : CommonSvc(commonRepo);
+public class CommonSvcWrapper(CommonRepo commonRepo) : CommonSvc<CarDto>(commonRepo);
