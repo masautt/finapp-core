@@ -27,8 +27,8 @@ jobs:
 
       - name: Pack Models and Services
         run: |
-          dotnet pack ./FinappCore/Models/Models.csproj --configuration Release --no-build -o out
-          dotnet pack ./FinappCore/Services/Services.csproj --configuration Release --no-build -o out
+          dotnet pack ./Models/Models.csproj --configuration Release --no-build -o out
+          dotnet pack ./Services/Services.csproj --configuration Release --no-build -o out
 
       - name: Publish to GitHub Packages
         run: dotnet nuget push "out/*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
