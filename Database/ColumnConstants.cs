@@ -53,7 +53,6 @@ public static class ColumnConstants
     public const string StartMiles = "start_miles";
     public const string MilesAdded = "miles_added";
     public const string MilesDate = "miles_date";
-    public const string TotalCar = "total_car";
 
     // Paycheck-specific
     public const string Source = "source";
@@ -95,5 +94,35 @@ public static class ColumnConstants
     public const string Reimburse = "reimburse";
     public const string Recurring = "recurring";
     public const string Ex = "ex";
+
+    // Union / Benefits
+    public const string AtDuesIbt = "at_dues_ibt";
+    public const string AtSuppDd = "at_supp_dd";
+    public const string AtSuppLife = "at_supp_life";
+    public const string AtSurviveBen = "at_survive_ben";
+    public const string DefComp457401a = "def_comp_457_401a";
+    public const string PbDppoBTx = "pb_dppo_btx";
+    public const string Fmla = "fmla";
+    public const string PbKaiserBTax = "pb_kaiser_btax";
+    public const string PbLifeCoPd = "pb_life_co_pd";
+    public const string PbPension = "pb_pension";
+    public const string PbStDis = "pb_st_dis";
+    public const string PbSurviveB = "pb_survive_b";
+    public const string PbVisionGen = "pb_vision_gen";
+    public const string PbWcCler = "pb_wc_cler";
+
+    // Accruals
+    public const string HolidayEarned = "holiday_earned";
+    public const string HolidayTaken = "holiday_taken";
+    public const string HolidayAdjust = "holiday_adjust";
+    public const string HolidayCurrent = "holiday_current";
+    public const string SickEarned = "sick_earned";
+    public const string SickTaken = "sick_taken";
+    public const string SickAdjust = "sick_adjust";
+    public const string SickCurrent = "sick_current";
+    public const string VacationEarned = "vacation_earned";
+    public const string VacationTaken = "vacation_taken";
+    public const string VacationAdjust = "vacation_adjust";
+    public const string VacationCurrent = "vacation_current";
 
 }

@@ -1,9 +1,8 @@
 ﻿using Models.Tables;
-using Repos.Interfaces;
+using Repos.Shared;
 using Services.Interfaces;
+using Services.Shared;
 
 namespace Services.Tables;
 
-public class ContributionSvc(IContributionRepo repo) : IContributionSvc
-{
-}
+public class ContributionSvc(EntityRepo entityRepo) : EntitySvc<ContributionDto>(entityRepo), IContributionSvc;

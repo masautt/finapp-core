@@ -2,7 +2,4 @@
 
 namespace Services.Interfaces;
 
-public interface IContributionSvc
-{
-
-}
+public interface IContributionSvc : IEntitySvc<ContributionDto>;

@@ -1,0 +1,34 @@
+name: Publish NuGet packages
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Pack only Models and Services
+        run: |
+          dotnet pack ./Models/Models.csproj --configuration Release --no-build -o out
+          dotnet pack ./Services/Services.csproj --configuration Release --no-build -o out
+
+      - name: Publish to GitHub Packages
+        run: dotnet nuget push "out/*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
