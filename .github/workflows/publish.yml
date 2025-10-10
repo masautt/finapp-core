@@ -25,9 +25,11 @@ jobs:
       - name: Build
         run: dotnet build ./FinappCore/FinappCore.sln --configuration Release --no-restore
 
-      - name: Pack Models and Services
+      - name: Pack Models, Repos, and Services
         run: |
           dotnet pack ./Models/Models.csproj --configuration Release --no-build -o out
+          dotnet pack ./Repos/Repos.csproj --configuration Release --no-build -o out
+          dotnet pack ./Database/Database.csproj --configuration Release --no-build -o out
           dotnet pack ./Services/Services.csproj --configuration Release --no-build -o out
 
       - name: Publish to GitHub Packages
