@@ -6,7 +6,7 @@
 
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>FinappCore.Models</PackageId>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<Authors>masautt</Authors>
 		<Description>Shared data models for FinappCore.</Description>
 		<RepositoryUrl>https://github.com/masautt/finapp-core</RepositoryUrl>
