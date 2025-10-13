@@ -28,4 +28,6 @@ public class TransactionSvc(EntityRepo entityRepo)
 
         return FetchDistinct(t => t.Business, filterList.ToArray());
     }
+
+    
 }

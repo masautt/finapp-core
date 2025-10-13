@@ -51,4 +51,6 @@ public abstract class EntitySvc<TEntity>(EntityRepo entityRepo) : IEntitySvc<TEn
         Expression<Func<TEntity, TResult>> selector,
         Expression<Func<TEntity, bool>>? predicate = null
     ) => _commonSvc.FetchProjected(selector, predicate);
+
+    public virtual Task<List<TEntity>> FetchAll() => _commonSvc.FetchAll();
 }

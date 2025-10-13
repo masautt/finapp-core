@@ -27,10 +27,12 @@ public class CommonSvc<TEntity>(CommonRepo repo) where TEntity : class
         Expression<Func<TEntity, TValue>> selector,
         params (Expression<Func<TEntity, object>> selector, object value)[] filters
     ) => _repo.FetchDistinct(selector, filters);
-    
+
     public Task<List<TResult>> FetchProjected<TResult>(
         Expression<Func<TEntity, TResult>> selector,
         Expression<Func<TEntity, bool>>? predicate = null
     )
         => _repo.FetchProjected(selector, predicate);
+
+    public Task<List<TEntity>> FetchAll() => _repo.FetchAll<TEntity>();
 }

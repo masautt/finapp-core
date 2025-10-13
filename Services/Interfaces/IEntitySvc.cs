@@ -29,4 +29,6 @@ public interface IEntitySvc<TEntity> where TEntity : class
         DateTime start,
         DateTime end,
         Expression<Func<TEntity, ExactDateFields>> exactDateSelector);
+
+    Task<List<TEntity>> FetchAll(); // <-- NEW
 }

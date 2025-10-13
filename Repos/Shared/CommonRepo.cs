@@ -167,4 +167,10 @@ public class CommonRepo(AppDbContext dbContext)
         var equal = Expression.Equal(numberProperty, constant);
         return Expression.Lambda<Func<TEntity, bool>>(equal, parameter);
     }
+
+    public async Task<List<TEntity>> FetchAll<TEntity>() where TEntity : class
+    {
+        return await dbContext.Set<TEntity>().ToListAsync();
+    }
+
 }
