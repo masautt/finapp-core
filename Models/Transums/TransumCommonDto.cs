@@ -1,6 +1,6 @@
 ﻿namespace Models.Transums;
 
-public class TransumAggDto
+public class TransumCommonDto
 {
     // Overall totals
     public decimal TotalAmount { get; set; }

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Database.Tables.Shared;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models.Tables;
 
-namespace Database.Config;
+namespace Database.Tables;
 
 public class PaycheckConfig : IEntityTypeConfiguration<PaycheckDto>
 {
@@ -10,30 +11,13 @@ public class PaycheckConfig : IEntityTypeConfiguration<PaycheckDto>
     {
         entity.ToTable(TableConstants.Paychecks);
 
-        // Define a shadow property as the primary key
-        entity.Property<string>(ColumnConstants.CommonId)
-              .HasColumnName(ColumnConstants.Id);
+        // CommonId + CommonDto
+        entity.ConfigureCommonEntity(e => e.Common);
 
-        entity.HasKey(ColumnConstants.CommonId); // shadow PK
+        // DateRangeFields
+        entity.ConfigureDateRange(e => e.DateRange);
 
-        // Map CommonDto
-        entity.OwnsOne(e => e.Common, common =>
-        {
-            common.Property(c => c.Id).HasColumnName(ColumnConstants.Id);
-            common.Property(c => c.Number).HasColumnName(ColumnConstants.Number);
-            common.Property(c => c.Comments).HasColumnName(ColumnConstants.Comments);
-        });
-
-        // Map DateRangeFields
-        entity.OwnsOne(e => e.DateRange, date =>
-        {
-            date.Property(d => d.StartDate).HasColumnName(ColumnConstants.StartDate);
-            date.Property(d => d.EndDate).HasColumnName(ColumnConstants.EndDate);
-            date.Property(d => d.Month).HasColumnName(ColumnConstants.Month);
-            date.Property(d => d.Year).HasColumnName(ColumnConstants.Year);
-        });
-
-        // Map Paycheck-specific scalars
+        // Paycheck-specific fields
         entity.Property(e => e.Source).HasColumnName(ColumnConstants.Source);
         entity.Property(e => e.CheckDate).HasColumnName(ColumnConstants.CheckDate);
         entity.Property(e => e.HoursPaid).HasColumnName(ColumnConstants.HoursPaid);
@@ -55,7 +39,7 @@ public class PaycheckConfig : IEntityTypeConfiguration<PaycheckDto>
         entity.Property(e => e.PensionCont).HasColumnName(ColumnConstants.PensionCont);
         entity.Property(e => e.RetireeTrust).HasColumnName(ColumnConstants.RetireeTrust);
 
-        // Map Union / Benefits
+        // Union / Benefits
         entity.Property(e => e.AtDuesIbt).HasColumnName(ColumnConstants.AtDuesIbt);
         entity.Property(e => e.AtSuppDd).HasColumnName(ColumnConstants.AtSuppDd);
         entity.Property(e => e.AtSuppLife).HasColumnName(ColumnConstants.AtSuppLife);
@@ -71,7 +55,7 @@ public class PaycheckConfig : IEntityTypeConfiguration<PaycheckDto>
         entity.Property(e => e.PbVisionGen).HasColumnName(ColumnConstants.PbVisionGen);
         entity.Property(e => e.PbWcCler).HasColumnName(ColumnConstants.PbWcCler);
 
-        // Map Accruals
+        // Accruals
         entity.Property(e => e.HolidayEarned).HasColumnName(ColumnConstants.HolidayEarned);
         entity.Property(e => e.HolidayTaken).HasColumnName(ColumnConstants.HolidayTaken);
         entity.Property(e => e.HolidayAdjust).HasColumnName(ColumnConstants.HolidayAdjust);

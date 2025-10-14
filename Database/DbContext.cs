@@ -1,4 +1,4 @@
-﻿using Database.Config;
+﻿using Database.Tables;
 using Microsoft.EntityFrameworkCore;
 using Models.Tables;
 

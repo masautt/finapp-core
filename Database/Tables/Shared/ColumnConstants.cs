@@ -1,4 +1,4 @@
-﻿namespace Database;
+﻿namespace Database.Tables.Shared;
 
 public static class ColumnConstants
 {
@@ -124,5 +124,4 @@ public static class ColumnConstants
     public const string VacationTaken = "vacation_taken";
     public const string VacationAdjust = "vacation_adjust";
     public const string VacationCurrent = "vacation_current";
-
 }

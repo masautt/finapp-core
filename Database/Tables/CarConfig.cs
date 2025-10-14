@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Database.Tables.Shared;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models.Tables;
 
-namespace Database.Config;
+namespace Database.Tables;
 
 public class CarConfig : IEntityTypeConfiguration<CarDto>
 {
@@ -10,21 +11,10 @@ public class CarConfig : IEntityTypeConfiguration<CarDto>
     {
         entity.ToTable(TableConstants.Car);
 
-    // Define a shadow property as the primary key
-    entity.Property<string>(ColumnConstants.CommonId)
-        .HasColumnName(ColumnConstants.Id);
+        // Use shared config for CommonId + CommonDto
+        entity.ConfigureCommonEntity(e => e.Common);
 
-        entity.HasKey(ColumnConstants.CommonId); // shadow PK
-
-        // Map CommonDto
-        entity.OwnsOne(e => e.Common, common =>
-        {
-            common.Property(c => c.Id).HasColumnName(ColumnConstants.Id);
-            common.Property(c => c.Number).HasColumnName(ColumnConstants.Number);
-            common.Property(c => c.Comments).HasColumnName(ColumnConstants.Comments);
-        });
-
-        // Map DateRangeFields
+        // Map DateRange
         entity.OwnsOne(e => e.DateRange, date =>
         {
             date.Property(d => d.StartDate).HasColumnName(ColumnConstants.StartDate);
@@ -33,7 +23,7 @@ public class CarConfig : IEntityTypeConfiguration<CarDto>
             date.Property(d => d.Year).HasColumnName(ColumnConstants.Year);
         });
 
-        // Map Car-specific scalars
+        // Car-specific fields
         entity.Property(e => e.PaymentDate).HasColumnName(ColumnConstants.PaymentDate);
         entity.Property(e => e.PaymentAmount).HasColumnName(ColumnConstants.PaymentAmount);
         entity.Property(e => e.Principal).HasColumnName(ColumnConstants.Principal);
@@ -45,5 +35,4 @@ public class CarConfig : IEntityTypeConfiguration<CarDto>
         entity.Property(e => e.MilesAdded).HasColumnName(ColumnConstants.MilesAdded);
         entity.Property(e => e.MilesDate).HasColumnName(ColumnConstants.MilesDate);
     }
-
 }

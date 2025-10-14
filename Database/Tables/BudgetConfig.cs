@@ -1,9 +1,9 @@
-﻿using Database.Config.Shared;
+﻿using Database.Tables.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models.Tables;
 
-namespace Database.Config;
+namespace Database.Tables;
 
 public class BudgetConfig : IEntityTypeConfiguration<BudgetDto>
 {
@@ -11,12 +11,11 @@ public class BudgetConfig : IEntityTypeConfiguration<BudgetDto>
     {
         entity.ToTable(TableConstants.Budgets);
 
-        entity.ConfigureCommonId();
-        entity.ConfigureCommon(e => e.Common);
+        // Single unified config for CommonId + CommonDto
+        entity.ConfigureCommonEntity(e => e.Common);
 
+        // Budget-specific fields
         entity.Property(e => e.Category).HasColumnName(ColumnConstants.Category);
-        entity.Property(e => e.Amount)
-            .HasColumnName(ColumnConstants.Amount)
-            .HasColumnType("decimal(18,2)");
+        entity.Property(e => e.Amount).HasColumnName(ColumnConstants.Amount);
     }
 }

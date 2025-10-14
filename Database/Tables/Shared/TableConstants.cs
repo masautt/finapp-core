@@ -1,4 +1,4 @@
-﻿namespace Database;
+﻿namespace Database.Tables.Shared;
 
 public static class TableConstants
 {

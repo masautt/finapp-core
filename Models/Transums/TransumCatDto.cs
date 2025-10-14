@@ -1,6 +1,6 @@
 ﻿namespace Models.Transums;
 
-public class TransumCatDto : TransumAggDto
+public class TransumCatDto : TransumCommonDto
 {
     // Primary key
     public string Category { get; set; } = null!;

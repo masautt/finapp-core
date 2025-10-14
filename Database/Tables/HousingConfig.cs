@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Database.Tables.Shared;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models.Tables;
 
-namespace Database.Config;
+namespace Database.Tables;
 
 public class HousingConfig : IEntityTypeConfiguration<HousingDto>
 {
@@ -10,30 +11,13 @@ public class HousingConfig : IEntityTypeConfiguration<HousingDto>
     {
         entity.ToTable(TableConstants.Housing);
 
-        // Define a shadow property as the primary key
-        entity.Property<string>(ColumnConstants.CommonId)
-            .HasColumnName(ColumnConstants.Id);
+        // Common setup
+        entity.ConfigureCommonEntity(e => e.Common);
 
-        entity.HasKey(ColumnConstants.CommonId); // shadow PK
+        // DateRange setup
+        entity.ConfigureDateRange(e => e.DateRange);
 
-        // Map CommonDto
-        entity.OwnsOne(e => e.Common, common =>
-        {
-            common.Property(c => c.Id).HasColumnName(ColumnConstants.Id);
-            common.Property(c => c.Number).HasColumnName(ColumnConstants.Number);
-            common.Property(c => c.Comments).HasColumnName(ColumnConstants.Comments);
-        });
-
-        // Map DateRangeFields
-        entity.OwnsOne(e => e.DateRange, date =>
-        {
-            date.Property(d => d.StartDate).HasColumnName(ColumnConstants.StartDate);
-            date.Property(d => d.EndDate).HasColumnName(ColumnConstants.EndDate);
-            date.Property(d => d.Month).HasColumnName(ColumnConstants.Month);
-            date.Property(d => d.Year).HasColumnName(ColumnConstants.Year);
-        });
-
-        // Map Housing-specific scalars
+        // Housing-specific fields
         entity.Property(e => e.RentAmount).HasColumnName(ColumnConstants.RentAmount);
         entity.Property(e => e.RentDate).HasColumnName(ColumnConstants.RentDate);
         entity.Property(e => e.InsuranceAmount).HasColumnName(ColumnConstants.InsuranceAmount);

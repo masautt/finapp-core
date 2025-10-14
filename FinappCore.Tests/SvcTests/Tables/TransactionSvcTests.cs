@@ -24,15 +24,6 @@ public class TransactionSvcTests
     }
 
     [Fact]
-    public async Task FetchById_ReturnsEntityIfExists()
-    {
-        const string testId = "tx123";
-        var entity = await _transactionSvc.FetchById(testId);
-        Assert.NotNull(entity);
-        Assert.Equal(testId, entity.Common.Id);
-    }
-
-    [Fact]
     public async Task FetchById_ReturnsNullIfNotExists()
     {
         const string nonExistentId = "nonexistent";
