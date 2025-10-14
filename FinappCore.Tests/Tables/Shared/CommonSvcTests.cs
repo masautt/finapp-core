@@ -1,11 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FinappCore.Tests.Shared;
+using Microsoft.Extensions.DependencyInjection;
 using Models.Tables;
 using Repos.Tables.Shared;
 using Services.Tables.Shared;
 
 namespace FinappCore.Tests.Tables.Shared;
 
-[Collection("Database")]
+[Collection(TestConstants.TestCollectionName)]
 public class CommonSvcTests
 {
     private readonly CommonSvcWrapper _svc;

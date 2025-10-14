@@ -14,4 +14,14 @@ public class TransumCommonSvc<TEntity, TKey>(TransumCommonRepo<TEntity, TKey> re
     {
         return await repo.FetchByKeyAsync(key);
     }
+
+    public async Task<TEntity?> FetchRandomAsync()
+    {
+        return await repo.FetchRandomAsync();
+    }
+
+    public async Task<int> FetchTotalCountAsync()
+    {
+        return await repo.FetchCountAsync();
+    }
 }

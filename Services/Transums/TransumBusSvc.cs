@@ -1,17 +1,9 @@
-﻿using Models.Transums;
-using Repos.Transums;
+﻿using Database;
+using Models.Transums;
+using Repos.Transums.Shared;
+using Services.Transums.Shared;
 
 namespace Services.Transums;
 
-public class TransumBusSvc(TransumBusRepo repo)
-{
-    public async Task<List<string>> GetUniqueBusinessesAsync()
-    {
-        return await repo.GetUniqueBusinessesAsync();
-    }
-
-    public async Task<TransumBusDto?> GetByBusinessAsync(string business)
-    {
-        return await repo.GetByBusinessAsync(business);
-    }
-}
+public class TransumBusSvc(AppDbContext dbContext)
+    : TransumCommonSvc<TransumBusDto, string>(new TransumCommonRepo<TransumBusDto, string>(dbContext, t => t.Business));

@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FinappCore.Tests.Shared;
+using Microsoft.Extensions.DependencyInjection;
 using Services.Tables.Interfaces;
 
 namespace FinappCore.Tests.Tables;
 
-[Collection("Database")]
+[Collection(TestConstants.TestCollectionName)]
 public class PaycheckSvcTests
 {
     private readonly IPaycheckSvc _svc;

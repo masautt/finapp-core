@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FinappCore.Tests.Shared;
+using Microsoft.Extensions.DependencyInjection;
 using Services.Transums;
 
 namespace FinappCore.Tests.Transums;
 
-[Collection("Database")]
+[Collection(TestConstants.TestCollectionName)]
 public class TransumCatSvcTests
 {
     private readonly TransumCatSvc _transumCatSvc;
@@ -20,7 +21,7 @@ public class TransumCatSvcTests
     [Fact]
     public async Task GetCategoriesAsync_ReturnsNonEmptyList()
     {
-        var categories = await _transumCatSvc.GetCategoriesAsync();
+        var categories = await _transumCatSvc.FetchAllUniqueKeysAsync();
         Assert.NotNull(categories);
         Assert.All(categories, c => Assert.False(string.IsNullOrEmpty(c)));
     }
@@ -28,7 +29,7 @@ public class TransumCatSvcTests
     [Fact]
     public async Task GetByCategoryAsync_ReturnsCategory()
     {
-        var dto = await _transumCatSvc.GetByCategoryAsync("groceries");
+        var dto = await _transumCatSvc.FetchByKeyAsync("groceries");
         Assert.NotNull(dto);
     }
 }

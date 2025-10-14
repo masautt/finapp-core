@@ -5,19 +5,19 @@ using Models.Transums;
 
 namespace Database.Transums;
 
-public class TransumCatConfig : IEntityTypeConfiguration<TransumCatDto>
+public class TransumSubConfig : IEntityTypeConfiguration<TransumSubDto>
 {
-    public void Configure(EntityTypeBuilder<TransumCatDto> entity)
+    public void Configure(EntityTypeBuilder<TransumSubDto> entity)
     {
-        entity.ToTable(TransumViewConstants.TransumCat);
+        entity.ToTable(TransumViewConstants.TransumSub);
 
         // Primary key
-        entity.HasKey(e => e.Category);
+        entity.HasKey(e => e.SubCategory);
 
         // Map inherited TransumCommonDto properties
         entity.ConfigureTransumCommon();
 
         // Map category-specific column (Category is already the PK)
-        entity.Property(e => e.Category).HasColumnName(TransumColumnConstants.Category);
+        entity.Property(e => e.SubCategory).HasColumnName(TransumColumnConstants.SubCategory);
     }
 }

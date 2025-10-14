@@ -12,6 +12,11 @@
 		<RepositoryUrl>https://github.com/masautt/finapp-core</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/masautt/finapp-core</PackageProjectUrl>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="Transums\NewFolder\**" />
+	  <EmbeddedResource Remove="Transums\NewFolder\**" />
+	  <None Remove="Transums\NewFolder\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />

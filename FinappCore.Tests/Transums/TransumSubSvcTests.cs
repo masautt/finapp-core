@@ -5,45 +5,45 @@ using Services.Transums;
 namespace FinappCore.Tests.Transums;
 
 [Collection(TestConstants.TestCollectionName)]
-public class TransumBusSvcTests
+public class TransumSubSvcTests
 {
-    private readonly TransumBusSvc _transumBusSvc;
+    private readonly TransumSubSvc _transumSubSvc;
 
-    public TransumBusSvcTests()
+    public TransumSubSvcTests()
     {
         var provider = TestServiceInitializer.GetServiceProvider();
         if (provider == null)
             throw new InvalidOperationException("Service provider could not be initialized.");
 
-        _transumBusSvc = provider.GetRequiredService<TransumBusSvc>();
+        _transumSubSvc = provider.GetRequiredService<TransumSubSvc>();
     }
 
     [Fact]
-    public async Task GetUniqueBusinessesAsync_ReturnsNonEmptyList()
+    public async Task GetUniqueSubsAsync_ReturnsNonEmptyList()
     {
-        var businesses = await _transumBusSvc.FetchAllUniqueKeysAsync();
-        Assert.NotNull(businesses);
-        Assert.All(businesses, b => Assert.False(string.IsNullOrEmpty(b)));
+        var subcategories = await _transumSubSvc.FetchAllUniqueKeysAsync();
+        Assert.NotNull(subcategories);
+        Assert.All(subcategories, b => Assert.False(string.IsNullOrEmpty(b)));
     }
 
     [Fact]
-    public async Task GetByBusiness_ReturnsBusiness()
+    public async Task GetBySub_ReturnsSubcategory()
     {
-        var dto = await _transumBusSvc.FetchByKeyAsync("Ralph's");
+        var dto = await _transumSubSvc.FetchByKeyAsync("carWash");
         Assert.NotNull(dto);
     }
 
     [Fact]
     public async Task FetchCountAsync_ReturnsPositiveNumber()
     {
-        var count = await _transumBusSvc.FetchTotalCountAsync();
+        var count = await _transumSubSvc.FetchTotalCountAsync();
         Assert.True(count > 0);
     }
 
     [Fact]
     public async Task FetchRandomAsync_ReturnsRandom()
     {
-        var dto = await _transumBusSvc.FetchRandomAsync();
+        var dto = await _transumSubSvc.FetchRandomAsync();
         Assert.NotNull(dto);
     }
 }

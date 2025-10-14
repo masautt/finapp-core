@@ -2,6 +2,7 @@
 
 public static class TransumViewConstants
 {
-    public const string TransumCategory = "transum_cat";
-    public const string TransumBusiness = "transum_bus";
+    public const string TransumCat = "transum_cat";
+    public const string TransumBus = "transum_bus";
+    public const string TransumSub = "transum_sub";
 }

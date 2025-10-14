@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FinappCore.Tests.Shared;
+using Microsoft.Extensions.DependencyInjection;
 using Models.Tables;
 using Services.Tables.Shared;
 
 namespace FinappCore.Tests.Tables.Shared;
 
-[Collection("Database")]
+[Collection(TestConstants.TestCollectionName)]
 public class DateSvcTests
 {
     private readonly DateSvc<CarDto> _carDateSvc;

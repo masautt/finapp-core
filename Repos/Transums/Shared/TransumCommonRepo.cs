@@ -10,7 +10,6 @@ public class TransumCommonRepo<TEntity, TKey>(AppDbContext dbContext, Expression
     private readonly AppDbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     private readonly Expression<Func<TEntity, TKey>> _keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
 
-    // Fetch distinct values for the key property (e.g., all business names or categories)
     public async Task<List<TKey>> FetchAllUniqueKeysAsync()
     {
         return await _dbContext.Set<TEntity>()
@@ -19,7 +18,6 @@ public class TransumCommonRepo<TEntity, TKey>(AppDbContext dbContext, Expression
             .ToListAsync();
     }
 
-    // Fetch a single entity by key value
     public async Task<TEntity?> FetchByKeyAsync(TKey key)
     {
         var param = _keySelector.Parameters.Single();
@@ -29,4 +27,10 @@ public class TransumCommonRepo<TEntity, TKey>(AppDbContext dbContext, Expression
         return await _dbContext.Set<TEntity>()
             .SingleOrDefaultAsync(predicate);
     }
+
+    public async Task<TEntity?> FetchRandomAsync() =>
+        await _dbContext.Set<TEntity>().OrderBy(e => Guid.NewGuid()).FirstOrDefaultAsync();
+
+    public async Task<int> FetchCountAsync() =>
+        await _dbContext.Set<TEntity>().CountAsync();
 }

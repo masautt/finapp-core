@@ -5,6 +5,7 @@ public static class TransumColumnConstants
     // Primary keys
     public const string Category = "category";
     public const string Business = "business";
+    public const string SubCategory = "sub_category";
 
     // Overall totals
     public const string TotalAmount = "total_amount";

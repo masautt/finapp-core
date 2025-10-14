@@ -1,17 +1,9 @@
-﻿using Models.Transums;
-using Repos.Transums;
+﻿using Database;
+using Models.Transums;
+using Repos.Transums.Shared;
+using Services.Transums.Shared;
 
 namespace Services.Transums;
 
-public class TransumCatSvc(TransumCatRepo repo)
-{
-    public async Task<List<string>> GetCategoriesAsync()
-    {
-        return await repo.GetCategoriesAsync();
-    }
-
-    public async Task<TransumCatDto?> GetByCategoryAsync(string category)
-    {
-        return await repo.GetByCategoryAsync(category);
-    }
-}
+public class TransumCatSvc(AppDbContext dbContext)
+    : TransumCommonSvc<TransumCatDto, string>(new TransumCommonRepo<TransumCatDto, string>(dbContext, t => t.Category));

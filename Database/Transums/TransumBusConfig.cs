@@ -9,7 +9,7 @@ public class TransumBusConfig : IEntityTypeConfiguration<TransumBusDto>
 {
     public void Configure(EntityTypeBuilder<TransumBusDto> entity)
     {
-        entity.ToTable(TransumViewConstants.TransumBusiness);
+        entity.ToTable(TransumViewConstants.TransumBus);
 
         // Primary key
         entity.HasKey(e => e.Business);
