@@ -1,6 +1,8 @@
 ﻿using Database.Tables;
+using Database.Transums;
 using Microsoft.EntityFrameworkCore;
 using Models.Tables;
+using Models.Transums;
 
 namespace Database;
 
@@ -21,6 +23,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<InvestmentDto> Investments { get; set; } = null!;
 
     public DbSet<TransactionDto> Transactions { get; set; } = null!;
+    public DbSet<TransumBusDto> TransumBuses { get; set; } = null!;
+    public DbSet<TransumCatDto> TransumCats { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,6 +46,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.ApplyConfiguration(new InvestmentConfig());
 
         modelBuilder.ApplyConfiguration(new TransactionConfig());
+
+        modelBuilder.ApplyConfiguration(new TransumBusConfig());
+
+        modelBuilder.ApplyConfiguration(new TransumCatConfig());
     }
 
 }

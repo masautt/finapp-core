@@ -14,10 +14,10 @@ public class TransumBusConfig : IEntityTypeConfiguration<TransumBusDto>
         // Primary key
         entity.HasKey(e => e.Business);
 
-        // Map TransumCommonDto owned type
-        entity.ConfigureTransumCommon(e => e);
+        // Map inherited TransumCommonDto properties
+        entity.ConfigureTransumCommon();
 
-        // Map Business-specific column
+        // Map business-specific column (Business is already the PK)
         entity.Property(e => e.Business).HasColumnName(TransumColumnConstants.Business);
     }
 }

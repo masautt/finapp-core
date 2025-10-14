@@ -1,7 +1,7 @@
 ﻿using Models.Tables;
-using Repos.Shared;
-using Services.Interfaces;
-using Services.Shared;
+using Repos.Tables.Shared;
+using Services.Tables.Interfaces;
+using Services.Tables.Shared;
 
 namespace Services.Tables;
 

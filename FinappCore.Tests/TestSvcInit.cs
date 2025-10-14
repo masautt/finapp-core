@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Repos.Shared;
-using Services.Interfaces;
-using Services.Shared;
+using Repos.Tables.Shared;
+using Repos.Transums;
 using Services.Tables;
+using Services.Tables.Interfaces;
+using Services.Tables.Shared;
+using Services.Transums;
 
 namespace FinappCore.Tests;
 
@@ -52,7 +54,7 @@ public static class TestServiceInitializer
         services.AddScoped(typeof(DateSvc<>));
         services.AddScoped(typeof(CommonSvc<>));
 
-        // Concrete Services
+        // Concrete Services (Tables)
         services.AddScoped<IBudgetSvc, BudgetSvc>();
         services.AddScoped<ICarSvc, CarSvc>();
         services.AddScoped<IContributionSvc, ContributionSvc>();
@@ -60,6 +62,12 @@ public static class TestServiceInitializer
         services.AddScoped<IPaycheckSvc, PaycheckSvc>();
         services.AddScoped<ISideGigSvc, SideGigSvc>();
         services.AddScoped<ITransactionSvc, TransactionSvc>();
+
+        // Transum Services
+        services.AddScoped<TransumBusSvc>();
+
+        // Transum Repos
+        services.AddScoped<TransumBusRepo>();
 
         return services.BuildServiceProvider();
     }

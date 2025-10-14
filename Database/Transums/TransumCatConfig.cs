@@ -14,10 +14,10 @@ public class TransumCatConfig : IEntityTypeConfiguration<TransumCatDto>
         // Primary key
         entity.HasKey(e => e.Category);
 
-        // Map TransumCommonDto owned type
-        entity.ConfigureTransumCommon(e => e);
+        // Map inherited TransumCommonDto properties
+        entity.ConfigureTransumCommon();
 
-        // Map Category-specific column
+        // Map category-specific column (Category is already the PK)
         entity.Property(e => e.Category).HasColumnName(TransumColumnConstants.Category);
     }
 }
