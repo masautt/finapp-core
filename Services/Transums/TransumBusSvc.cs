@@ -10,7 +10,7 @@ public class TransumBusSvc(TransumBusRepo repo)
         return await repo.GetUniqueBusinessesAsync();
     }
 
-    public async Task<List<TransumBusDto>> GetByBusinessAsync(string business)
+    public async Task<TransumBusDto?> GetByBusinessAsync(string business)
     {
         return await repo.GetByBusinessAsync(business);
     }

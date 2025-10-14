@@ -18,10 +18,9 @@ public class TransumBusRepo(AppDbContext dbContext)
     }
 
     // Returns all TransumBusDto entries for a specific business
-    public async Task<List<TransumBusDto>> GetByBusinessAsync(string business)
+    public async Task<TransumBusDto?> GetByBusinessAsync(string business)
     {
         return await _dbContext.Set<TransumBusDto>()
-            .Where(t => t.Business == business)
-            .ToListAsync();
+            .SingleOrDefaultAsync(t => t.Business == business);
     }
 }

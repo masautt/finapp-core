@@ -24,4 +24,11 @@ public class TransumBusSvcTests
         Assert.NotNull(businesses);
         Assert.All(businesses, b => Assert.False(string.IsNullOrEmpty(b)));
     }
+
+    [Fact]
+    public async Task GetByBusiness_ReturnsBusiness()
+    {
+        var dto = await _transumBusSvc.GetByBusinessAsync("Ralph's");
+        Assert.NotNull(dto);
+    }
 }
