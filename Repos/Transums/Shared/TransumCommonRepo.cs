@@ -20,12 +20,35 @@ public class TransumCommonRepo<TEntity, TKey>(AppDbContext dbContext, Expression
 
     public async Task<TEntity?> FetchByKeyAsync(TKey key)
     {
-        var param = _keySelector.Parameters.Single();
-        var body = Expression.Equal(_keySelector.Body, Expression.Constant(key));
-        var predicate = Expression.Lambda<Func<TEntity, bool>>(body, param);
+        var entitySet = _dbContext.Set<TEntity>();
+        var parameter = Expression.Parameter(typeof(TEntity), "e");
+        Expression? comparison = null;
 
-        return await _dbContext.Set<TEntity>()
-            .SingleOrDefaultAsync(predicate);
+        var keyType = key!.GetType();
+
+        if ((keyType.IsValueType && keyType.FullName!.StartsWith("System.ValueTuple")) || keyType.IsAnonymousType())
+        {
+            // Handle multi-key case (tuple or anonymous object)
+            var keyMembers = keyType.GetProperties();
+
+            foreach (var prop in keyMembers)
+            {
+                var entityProp = Expression.Property(parameter, prop.Name);
+                var keyValue = Expression.Constant(prop.GetValue(key));
+                var equals = Expression.Equal(entityProp, keyValue);
+                comparison = comparison == null ? equals : Expression.AndAlso(comparison, equals);
+            }
+        }
+        else
+        {
+            // Handle single key case
+            var body = Expression.Equal(_keySelector.Body, Expression.Constant(key));
+            comparison = body;
+            parameter = _keySelector.Parameters.Single();
+        }
+
+        var predicate = Expression.Lambda<Func<TEntity, bool>>(comparison!, parameter);
+        return await entitySet.SingleOrDefaultAsync(predicate);
     }
 
     public async Task<TEntity?> FetchRandomAsync() =>
@@ -33,4 +56,17 @@ public class TransumCommonRepo<TEntity, TKey>(AppDbContext dbContext, Expression
 
     public async Task<int> FetchCountAsync() =>
         await _dbContext.Set<TEntity>().CountAsync();
+}
+
+
+public static class TypeExtensions
+{
+    public static bool IsAnonymousType(this Type type)
+    {
+        return Attribute.IsDefined(type, typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), false)
+               && type.IsGenericType && type.Name.Contains("AnonymousType")
+               && (type.Name.StartsWith("<>", StringComparison.OrdinalIgnoreCase)
+                   || type.Name.StartsWith("VB$", StringComparison.OrdinalIgnoreCase))
+               && type.Attributes.HasFlag(System.Reflection.TypeAttributes.NotPublic);
+    }
 }

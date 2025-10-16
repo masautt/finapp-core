@@ -6,6 +6,8 @@ public static class TransumColumnConstants
     public const string Category = "category";
     public const string Business = "business";
     public const string SubCategory = "sub_category";
+    public const string City = "city";
+    public const string State = "state";
 
     // Overall totals
     public const string TotalAmount = "total_amount";
