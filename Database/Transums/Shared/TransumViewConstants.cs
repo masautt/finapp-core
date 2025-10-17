@@ -6,4 +6,5 @@ public static class TransumViewConstants
     public const string TransumBus = "transum_bus";
     public const string TransumSub = "transum_sub";
     public const string TransumLoc = "transum_loc";
+    public const string TransumYr = "transum_yr";
 }

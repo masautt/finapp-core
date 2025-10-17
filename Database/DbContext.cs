@@ -30,7 +30,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
     public DbSet<TransumSubDto> TransumSubs { get; set; } = null!;
 
-    public DbSet<TransumLocDto> TransumLocDtos { get; set; } = null!;
+    public DbSet<TransumLocDto> TransumLoc { get; set; } = null!;
+
+    public DbSet<TransumYrDto> TransumYrs { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -60,6 +62,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.ApplyConfiguration(new TransumSubConfig());
 
         modelBuilder.ApplyConfiguration(new TransumLocConfig());
+
+        modelBuilder.ApplyConfiguration(new TransumYrConfig());
     }
 
 }

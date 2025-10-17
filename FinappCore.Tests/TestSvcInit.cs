@@ -68,6 +68,7 @@ public static class TestServiceInitializer
         services.AddScoped<TransumCatSvc>();
         services.AddScoped<TransumSubSvc>();
         services.AddScoped<TransumLocSvc>();
+        services.AddScoped<TransumYrSvc>();
 
         return services.BuildServiceProvider();
     }
