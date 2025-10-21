@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Repos.Tables.Shared;
+using Repos.Tables;
 
 namespace Services.Tables.Shared;
 
@@ -13,7 +13,7 @@ public class CommonSvc<TEntity>(CommonRepo repo) where TEntity : class
 
     public Task<int> FetchTotalCount() => _repo.FetchTotalCount<TEntity>();
 
-    public Task<TEntity?> FetchRandomRecord() => _repo.FetchRandomRecord<TEntity>();
+    public Task<TEntity?> FetchRandomRecord(Expression<Func<TEntity, bool>>? predicate = null) => _repo.FetchRandomRecord(predicate);
 
     public Task<TEntity?> FetchLatestRecord(Expression<Func<TEntity, bool>>? predicate = null)
         => _repo.FetchLatestRecord(predicate);
@@ -22,11 +22,6 @@ public class CommonSvc<TEntity>(CommonRepo repo) where TEntity : class
         => _repo.FetchOldestRecord(predicate);
     public Task<List<TEntity>> FetchByCustom(params (Expression<Func<TEntity, object>> selector, object value)[] filters)
         => _repo.FetchByCustom(filters);
-
-    public Task<List<TValue>> FetchDistinct<TValue>(
-        Expression<Func<TEntity, TValue>> selector,
-        params (Expression<Func<TEntity, object>> selector, object value)[] filters
-    ) => _repo.FetchDistinct(selector, filters);
 
     public Task<List<TResult>> FetchProjected<TResult>(
         Expression<Func<TEntity, TResult>> selector,

@@ -1,7 +1,7 @@
 ﻿using Models.Tables;
 using System.Linq.Expressions;
 
-namespace Services.Tables.Interfaces;
+namespace Services.Tables.Shared.Interfaces;
 
 public interface IEntitySvc<TEntity> where TEntity : class
 {
@@ -10,7 +10,7 @@ public interface IEntitySvc<TEntity> where TEntity : class
     Task<int> FetchTotalCount();
     Task<TEntity?> FetchLatestRecord(Expression<Func<TEntity, bool>>? predicate = null);
     Task<TEntity?> FetchOldestRecord(Expression<Func<TEntity, bool>>? predicate = null);
-    Task<TEntity?> FetchRandomRecord();
+    Task<TEntity?> FetchRandomRecord(Expression<Func<TEntity, bool>>? predicate = null);
     Task<TEntity?> FetchByNumber(int number);
     Task<List<TEntity>> FetchByCustom(params (Expression<Func<TEntity, object>> selector, object value)[] filters);
 

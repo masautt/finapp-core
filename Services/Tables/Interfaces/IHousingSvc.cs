@@ -1,9 +1,6 @@
 ﻿using Models.Tables;
-using Services.Tables;
+using Services.Tables.Shared.Interfaces;
 
 namespace Services.Tables.Interfaces;
 
-public interface IHousingSvc : IEntitySvc<HousingDto>
-{
-    Task<List<HousingSvc.UtilityRecord>> FetchUtilities();
-}
+public interface IHousingSvc : IEntitySvc<HousingDto>;

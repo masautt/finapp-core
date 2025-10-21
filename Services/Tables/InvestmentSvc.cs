@@ -1,5 +1,5 @@
 ﻿using Models.Tables;
-using Repos.Tables.Shared;
+using Repos.Tables;
 using Services.Tables.Interfaces;
 using Services.Tables.Shared;
 

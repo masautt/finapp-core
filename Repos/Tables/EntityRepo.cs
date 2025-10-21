@@ -1,4 +1,4 @@
-﻿namespace Repos.Tables.Shared;
+﻿namespace Repos.Tables;
 
 public class EntityRepo(CommonRepo commonRepo, DateRepo dateRepo)
 {

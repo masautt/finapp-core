@@ -7,11 +7,11 @@ using Services.Transums;
 namespace FinappCore.Tests.Transums;
 
 [Collection(TestConstants.TestCollectionName)]
-public class TransumSubSvcTests
+public class TransumYrCatSvcTests
 {
-    private readonly TransumCommonSvc<TransumSubDto, string> _transumSubSvc;
+    private readonly TransumCommonSvc<TransumYrCatDto, object> _transumYrCatSvc;
 
-    public TransumSubSvcTests()
+    public TransumYrCatSvcTests()
     {
         var provider = TestServiceInitializer.GetServiceProvider();
         if (provider == null)
@@ -20,36 +20,36 @@ public class TransumSubSvcTests
         // Resolve DbContext first
         var dbContext = provider.GetRequiredService<AppDbContext>();
 
-        // Use the static factory instead of the old TransumSubSvc
-        _transumSubSvc = TransumServices.Sub(dbContext);
+        // Use the static factory instead of the old TransumYrCatSvc
+        _transumYrCatSvc = TransumServices.YrCat(dbContext);
     }
 
     [Fact]
-    public async Task GetUniqueSubsAsync_ReturnsNonEmptyList()
+    public async Task GetUniqueYrCatAsync_ReturnsNonEmptyList()
     {
-        var subcategories = await _transumSubSvc.FetchAllUniqueKeysAsync();
-        Assert.NotNull(subcategories);
-        Assert.All(subcategories, b => Assert.False(string.IsNullOrEmpty(b)));
+        var yearCategories = await _transumYrCatSvc.FetchAllUniqueKeysAsync();
+        Assert.NotNull(yearCategories);
     }
 
     [Fact]
-    public async Task GetBySub_ReturnsSubcategory()
+    public async Task GetByYearCategory_ReturnsYrCat()
     {
-        var dto = await _transumSubSvc.FetchByKeyAsync("carWash");
+        var key = new { Year = 2025, Category = "bills" };
+        var dto = await _transumYrCatSvc.FetchByKeyAsync(key);
         Assert.NotNull(dto);
     }
 
     [Fact]
     public async Task FetchCountAsync_ReturnsPositiveNumber()
     {
-        var count = await _transumSubSvc.FetchTotalCountAsync();
+        var count = await _transumYrCatSvc.FetchTotalCountAsync();
         Assert.True(count > 0);
     }
 
     [Fact]
     public async Task FetchRandomAsync_ReturnsRandom()
     {
-        var dto = await _transumSubSvc.FetchRandomAsync();
+        var dto = await _transumYrCatSvc.FetchRandomAsync();
         Assert.NotNull(dto);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Models.Tables;
-using Repos.Tables.Shared;
-using Services.Tables.Interfaces;
+using Repos.Tables;
+using Services.Tables.Shared.Interfaces;
 
 namespace Services.Tables.Shared;
 
@@ -16,7 +16,7 @@ public abstract class EntitySvc<TEntity>(EntityRepo entityRepo) : IEntitySvc<TEn
 
     public virtual Task<int> FetchTotalCount() => _commonSvc.FetchTotalCount();
 
-    public virtual Task<TEntity?> FetchRandomRecord() => _commonSvc.FetchRandomRecord();
+    public virtual Task<TEntity?> FetchRandomRecord(Expression<Func<TEntity, bool>>? predicate = null) => _commonSvc.FetchRandomRecord(predicate);
 
     public virtual Task<TEntity?> FetchByNumber(int number) => _commonSvc.FetchByNumber(number);
 
@@ -28,11 +28,6 @@ public abstract class EntitySvc<TEntity>(EntityRepo entityRepo) : IEntitySvc<TEn
 
     public virtual Task<List<TEntity>> FetchByCustom(params (Expression<Func<TEntity, object>> selector, object value)[] filters)
         => _commonSvc.FetchByCustom(filters);
-
-    public virtual Task<List<TValue>> FetchDistinct<TValue>(
-        Expression<Func<TEntity, TValue>> selector,
-        params (Expression<Func<TEntity, object>> selector, object value)[] filters
-    ) => _commonSvc.FetchDistinct(selector, filters);
 
     // Expose DateSvc methods
     public virtual Task<List<TEntity>> FetchByDateRange(

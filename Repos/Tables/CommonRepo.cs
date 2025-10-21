@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Repos.Tables.Shared;
+namespace Repos.Tables;
 
 public class CommonRepo(AppDbContext dbContext)
 {

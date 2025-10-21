@@ -1,5 +1,7 @@
-﻿using FinappCore.Tests.Shared;
+﻿using Database;
+using FinappCore.Tests.Shared;
 using Microsoft.Extensions.DependencyInjection;
+using Models.Transums;
 using Services.Transums;
 
 namespace FinappCore.Tests.Transums;
@@ -7,7 +9,7 @@ namespace FinappCore.Tests.Transums;
 [Collection(TestConstants.TestCollectionName)]
 public class TransumLocSvcTests
 {
-    private readonly TransumLocSvc _transumLocSvc;
+    private readonly TransumCommonSvc<TransumLocDto, object> _transumLocSvc;
 
     public TransumLocSvcTests()
     {
@@ -15,7 +17,11 @@ public class TransumLocSvcTests
         if (provider == null)
             throw new InvalidOperationException("Service provider could not be initialized.");
 
-        _transumLocSvc = provider.GetRequiredService<TransumLocSvc>();
+        // Resolve DbContext first
+        var dbContext = provider.GetRequiredService<AppDbContext>();
+
+        // Use the static factory instead of the old TransumLocSvc
+        _transumLocSvc = TransumServices.Loc(dbContext);
     }
 
     [Fact]

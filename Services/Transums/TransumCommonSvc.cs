@@ -1,6 +1,6 @@
-﻿using Repos.Transums.Shared;
+﻿using Repos.Transums;
 
-namespace Services.Transums.Shared;
+namespace Services.Transums;
 
 public class TransumCommonSvc<TEntity, TKey>(TransumCommonRepo<TEntity, TKey> repo)
     where TEntity : class

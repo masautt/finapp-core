@@ -2,7 +2,7 @@
 using Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repos.Transums.Shared;
+namespace Repos.Transums;
 
 public class TransumCommonRepo<TEntity, TKey>(AppDbContext dbContext, Expression<Func<TEntity, TKey>> keySelector)
     where TEntity : class
@@ -26,7 +26,7 @@ public class TransumCommonRepo<TEntity, TKey>(AppDbContext dbContext, Expression
 
         var keyType = key!.GetType();
 
-        if ((keyType.IsValueType && keyType.FullName!.StartsWith("System.ValueTuple")) || keyType.IsAnonymousType())
+        if (keyType.IsValueType && keyType.FullName!.StartsWith("System.ValueTuple") || keyType.IsAnonymousType())
         {
             // Handle multi-key case (tuple or anonymous object)
             var keyMembers = keyType.GetProperties();

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Models.Tables;
-using Repos.Tables.Shared;
+using Repos.Tables;
 
 namespace Services.Tables.Shared;
 

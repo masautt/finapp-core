@@ -17,13 +17,4 @@ public class PaycheckSvcTests
 
         _svc = provider.GetRequiredService<IPaycheckSvc>();
     }
-
-    [Fact]
-    public async Task GetLatestTimeOff_ReturnsNonNullObject_WhenPaychecksExist()
-    {
-        // Act
-        var result = await _svc.GetLatestTimeOff();
-
-        Assert.NotNull(result);
-    }
 }

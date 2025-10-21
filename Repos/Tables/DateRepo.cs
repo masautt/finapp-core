@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Models.Tables;
 using System.Linq.Expressions;
 
-namespace Repos.Tables.Shared;
+namespace Repos.Tables;
 
 public class DateRepo(AppDbContext dbContext)
 {

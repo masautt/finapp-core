@@ -7,11 +7,11 @@ using Models.Transums;
 namespace FinappCore.Tests.Transums;
 
 [Collection(TestConstants.TestCollectionName)]
-public class TransumYrSvcTests
+public class TransumMoSvcTests
 {
-    private readonly TransumCommonSvc<TransumYrDto, int> _transumYrSvc;
+    private readonly TransumCommonSvc<TransumMoDto, string> _transumMoSvc;
 
-    public TransumYrSvcTests()
+    public TransumMoSvcTests()
     {
         var provider = TestServiceInitializer.GetServiceProvider();
         if (provider == null)
@@ -20,37 +20,40 @@ public class TransumYrSvcTests
         // Resolve DbContext first
         var dbContext = provider.GetRequiredService<AppDbContext>();
 
-        // Use the static factory instead of the old TransumYrSvc
-        _transumYrSvc = TransumServices.Yr(dbContext);
+        // Use the static factory instead of the old TransumMoSvc
+        _transumMoSvc = TransumServices.Mo(dbContext);
     }
 
     [Fact]
     public async Task GetUniqueYearsAsync_ReturnsNonEmptyList()
     {
-        var years = await _transumYrSvc.FetchAllUniqueKeysAsync();
-        Assert.NotNull(years);
+        var months = await _transumMoSvc.FetchAllUniqueKeysAsync();
+        Assert.NotNull(months);
+        Assert.All(months, m => Assert.False(string.IsNullOrEmpty(m)));
     }
 
     [Fact]
     public async Task GetByYear_ReturnsYearDto()
     {
-        var dto = await _transumYrSvc.FetchByKeyAsync(2025);
+        var dto = await _transumMoSvc.FetchByKeyAsync("jan");
         Assert.NotNull(dto);
-        Assert.IsType<TransumYrDto>(dto);
+        Assert.IsType<TransumMoDto>(dto);
+        Assert.False(string.IsNullOrEmpty(dto.Month));
     }
 
     [Fact]
     public async Task FetchCountAsync_ReturnsPositiveNumber()
     {
-        var count = await _transumYrSvc.FetchTotalCountAsync();
+        var count = await _transumMoSvc.FetchTotalCountAsync();
         Assert.True(count > 0);
     }
 
     [Fact]
     public async Task FetchRandomAsync_ReturnsRandomYearDto()
     {
-        var dto = await _transumYrSvc.FetchRandomAsync();
+        var dto = await _transumMoSvc.FetchRandomAsync();
         Assert.NotNull(dto);
-        Assert.IsType<TransumYrDto>(dto);
+        Assert.IsType<TransumMoDto>(dto);
+        Assert.False(string.IsNullOrEmpty(dto.Month));
     }
 }

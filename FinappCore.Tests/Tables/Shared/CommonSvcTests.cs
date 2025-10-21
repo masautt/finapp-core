@@ -1,7 +1,7 @@
 ﻿using FinappCore.Tests.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Models.Tables;
-using Repos.Tables.Shared;
+using Repos.Tables;
 using Services.Tables.Shared;
 
 namespace FinappCore.Tests.Tables.Shared;

@@ -1,7 +1,21 @@
-﻿namespace Database.Transums.Shared;
+﻿namespace Database.Transums;
 
-public static class TransumColumnConstants
+public static class TransumConstants
 {
+    // Transum Names
+    public const string TransumCat = "transum_cat";
+    public const string TransumBus = "transum_bus";
+    public const string TransumSub = "transum_sub";
+    public const string TransumLoc = "transum_loc";
+    public const string TransumYr = "transum_yr";
+    public const string TransumMo = "transum_mo";
+    public const string TransumYrCat = "transum_yrcat";
+    public const string TransumYrMo = "transum_yrmo";
+    public const string TransumYrMoCat = "transum_yrmocat";
+    public const string TransumYrMoDa = "transum_yrmoda";
+    public const string TransumYrMoDaCat = "transum_yrmodacat";
+    public const string TransumYrMoDaCatSub = "transum_yrmodacatsub";
+
     // Primary keys
     public const string Category = "category";
     public const string Business = "business";
@@ -9,6 +23,8 @@ public static class TransumColumnConstants
     public const string City = "city";
     public const string State = "state";
     public const string Year = "year";
+    public const string Month = "month";
+    public const string Day = "day";
 
     // Overall totals
     public const string TotalAmount = "total_amount";
