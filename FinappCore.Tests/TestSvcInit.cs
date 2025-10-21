@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Repos.Shared;
-using Services.Interfaces;
-using Services.Shared;
+using Repos.Tables;
+using Repos.Transums;
 using Services.Tables;
+using Services.Tables.Interfaces;
+using Services.Tables.Shared;
+using Services.Transums;
 
 namespace FinappCore.Tests;
 
@@ -17,7 +19,6 @@ public static class TestServiceInitializer
     {
         if (_provider != null) return _provider;
 
-        // Load configuration
         var configuration = new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -35,12 +36,11 @@ public static class TestServiceInitializer
     {
         var services = new ServiceCollection();
 
-        // Build DbContext options
+        // DbContext
         var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseNpgsql(connectionString)
             .Options;
 
-        // Register DbContext
         services.AddScoped(_ => new AppDbContext(options));
 
         // Base Repositories
@@ -48,11 +48,11 @@ public static class TestServiceInitializer
         services.AddScoped<DateRepo>();
         services.AddScoped<EntityRepo>();
 
-        // Base Services (optional, only if you use them directly elsewhere)
+        // Base Services
         services.AddScoped(typeof(DateSvc<>));
         services.AddScoped(typeof(CommonSvc<>));
 
-        // Concrete Services
+        // Table Services
         services.AddScoped<IBudgetSvc, BudgetSvc>();
         services.AddScoped<ICarSvc, CarSvc>();
         services.AddScoped<IContributionSvc, ContributionSvc>();

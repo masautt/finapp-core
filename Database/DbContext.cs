@@ -1,27 +1,13 @@
-﻿using Database.Config;
+﻿using Database.Tables;
+using Database.Transums;
 using Microsoft.EntityFrameworkCore;
 using Models.Tables;
+using Models.Transums;
 
 namespace Database;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public DbSet<BudgetDto> Budgets { get; set; } = null!;
-
-    public DbSet<SideGigDto> SideGigs { get; set; } = null!;
-
-    public DbSet<HousingDto> Housings { get; set; } = null!;
-
-    public DbSet<ContributionDto> Contributions { get; set; } = null!;
-
-    public DbSet<CarDto> Cars { get; set; } = null!;
-
-    public DbSet<PaycheckDto> Paychecks { get; set; } = null!;
-
-    public DbSet<InvestmentDto> Investments { get; set; } = null!;
-
-    public DbSet<TransactionDto> Transactions { get; set; } = null!;
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -42,6 +28,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.ApplyConfiguration(new InvestmentConfig());
 
         modelBuilder.ApplyConfiguration(new TransactionConfig());
-    }
 
+        modelBuilder.ConfigureTransumEntities();
+    }
 }
