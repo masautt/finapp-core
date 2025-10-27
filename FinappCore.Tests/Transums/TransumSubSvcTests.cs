@@ -83,6 +83,6 @@ public class TransumSubSvcTests
     public async Task KeyExistsAsync_ReturnsFalseForNonExistingKey()
     {
         var exists = await _transumSubSvc.KeyExistsAsync("drugs");
-        Assert.True(exists);
+        Assert.False(exists);
     }
 }

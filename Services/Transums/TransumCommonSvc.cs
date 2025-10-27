@@ -1,7 +1,6 @@
-﻿using System.Linq.Expressions;
-using Models.Transums;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Query.ExpressionTranslators.Internal;
+﻿using Models.Transums;
 using Repos.Transums;
+using System.Linq.Expressions;
 
 namespace Services.Transums;
 

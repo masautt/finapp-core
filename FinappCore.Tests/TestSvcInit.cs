@@ -42,22 +42,22 @@ public static class TestServiceInitializer
         services.AddScoped(_ => new AppDbContext(options));
 
         // Base Repositories
-        services.AddScoped<CommonRepo>();
-        services.AddScoped<DateRepo>();
-        services.AddScoped<EntityRepo>();
+        services.AddScoped<TableCommonRepo>();
+        services.AddScoped<TableDateRepo>();
+        services.AddScoped<TableEntityRepo>();
 
         // Base Services
-        services.AddScoped(typeof(DateSvc<>));
-        services.AddScoped(typeof(CommonSvc<>));
+        services.AddScoped(typeof(DateTableSvc<>));
+        services.AddScoped(typeof(CommonTableSvc<>));
 
         // Table Services
-        services.AddScoped<IBudgetSvc, BudgetSvc>();
-        services.AddScoped<ICarSvc, CarSvc>();
-        services.AddScoped<IContributionSvc, ContributionSvc>();
-        services.AddScoped<IHousingSvc, HousingSvc>();
-        services.AddScoped<IPaycheckSvc, PaycheckSvc>();
-        services.AddScoped<ISideGigSvc, SideGigSvc>();
-        services.AddScoped<ITransactionSvc, TransactionSvc>();
+        services.AddScoped<IBudgetTableSvc, BudgetTableSvc>();
+        services.AddScoped<ICarTableSvc, CarTableSvc>();
+        services.AddScoped<IContributionTableSvc, ContributionTableSvc>();
+        services.AddScoped<IHousingTableSvc, HousingTableSvc>();
+        services.AddScoped<IPaycheckTableSvc, PaycheckTableSvc>();
+        services.AddScoped<ISideGigTableSvc, SideGigTableSvc>();
+        services.AddScoped<ITransactionSvc, TransactionTableSvc>();
 
         return services.BuildServiceProvider();
     }

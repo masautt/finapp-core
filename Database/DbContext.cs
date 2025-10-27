@@ -13,21 +13,21 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.ApplyConfiguration(new BudgetConfig());
+        modelBuilder.ApplyConfiguration(new BudgetTableConfig());
 
-        modelBuilder.ApplyConfiguration(new SideGigConfig());
+        modelBuilder.ApplyConfiguration(new SideGigTableConfig());
 
-        modelBuilder.ApplyConfiguration(new HousingConfig());
+        modelBuilder.ApplyConfiguration(new HousingTableConfig());
 
-        modelBuilder.ApplyConfiguration(new ContributionConfig());
+        modelBuilder.ApplyConfiguration(new ContributionTableConfig());
 
-        modelBuilder.ApplyConfiguration(new CarConfig());
+        modelBuilder.ApplyConfiguration(new CarTableConfig());
 
-        modelBuilder.ApplyConfiguration(new PaycheckConfig());
+        modelBuilder.ApplyConfiguration(new PaycheckTableConfig());
 
-        modelBuilder.ApplyConfiguration(new InvestmentConfig());
+        modelBuilder.ApplyConfiguration(new InvestmentTableConfig());
 
-        modelBuilder.ApplyConfiguration(new TransactionConfig());
+        modelBuilder.ApplyConfiguration(new TransactionTableConfig());
 
         modelBuilder.ConfigureTransumEntities();
     }

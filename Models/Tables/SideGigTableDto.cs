@@ -1,0 +1,13 @@
+﻿using Models.Tables.Shared;
+
+namespace Models.Tables;
+
+public class SideGigTableDto
+{
+    public CommonTableDto Common { get; set; } = new();
+    public DateRangeFields DateRange { get; set; } = new();
+
+    public decimal? HoursWorked { get; set; }
+    public decimal AmountPaid { get; set; }
+    public string Company { get; set; } = null!;
+}
