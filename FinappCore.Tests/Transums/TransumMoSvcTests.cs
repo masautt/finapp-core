@@ -44,7 +44,7 @@ public class TransumMoSvcTests
     [Fact]
     public async Task FetchCountAsync_ReturnsPositiveNumber()
     {
-        var count = await _transumMoSvc.FetchTotalCountAsync();
+        var count = await _transumMoSvc.FetchCountAsync();
         Assert.True(count > 0);
     }
 

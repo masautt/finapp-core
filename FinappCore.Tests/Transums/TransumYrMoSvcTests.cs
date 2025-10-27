@@ -40,7 +40,7 @@ public class TransumYrMoSvcTests
     [Fact]
     public async Task FetchCountAsync_ReturnsPositiveNumber()
     {
-        var count = await _transumYrMoSvc.FetchTotalCountAsync();
+        var count = await _transumYrMoSvc.FetchCountAsync();
         Assert.True(count > 0);
     }
 

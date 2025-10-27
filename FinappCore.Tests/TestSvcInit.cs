@@ -3,11 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Repos.Tables;
-using Repos.Transums;
 using Services.Tables;
 using Services.Tables.Interfaces;
 using Services.Tables.Shared;
-using Services.Transums;
 
 namespace FinappCore.Tests;
 

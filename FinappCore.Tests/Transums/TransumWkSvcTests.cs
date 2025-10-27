@@ -7,11 +7,11 @@ using Services.Transums;
 namespace FinappCore.Tests.Transums;
 
 [Collection(TestConstants.TestCollectionName)]
-public class TransumLocSvcTests
+public class TransumWkSvcTests
 {
-    private readonly TransumCommonSvc<TransumLocDto, object> _transumLocSvc;
+    private readonly TransumCommonSvc<TransumWkDto, int> _transumWkSvc;
 
-    public TransumLocSvcTests()
+    public TransumWkSvcTests()
     {
         var provider = TestServiceInitializer.GetServiceProvider();
         if (provider == null)
@@ -20,36 +20,43 @@ public class TransumLocSvcTests
         // Resolve DbContext first
         var dbContext = provider.GetRequiredService<AppDbContext>();
 
-        // Use the static factory instead of the old TransumLocSvc
-        _transumLocSvc = TransumServices.Loc(dbContext);
+        // Use the static factory
+        _transumWkSvc = TransumServices.Wk(dbContext);
     }
 
     [Fact]
-    public async Task GetUniqueLocationsAsync_ReturnsNonEmptyList()
+    public async Task GetUniqueWeeksAsync_ReturnsNonEmptyList()
     {
-        var locations = await _transumLocSvc.FetchAllUniqueKeysAsync();
-        Assert.NotNull(locations);
+        var weeks = await _transumWkSvc.FetchAllUniqueKeysAsync();
+
+        Assert.NotNull(weeks);
+        Assert.NotEmpty(weeks);
+        Assert.All(weeks, w => Assert.True(w is >= 1 and <= 53));
     }
 
     [Fact]
-    public async Task GetByLocation_ReturnsLocation()
+    public async Task GetByWeek_ReturnsWeek()
     {
-        var key = new { City = "Los Angeles", State = "CA" };
-        var dto = await _transumLocSvc.FetchByKeyAsync(key);
+        var dto = await _transumWkSvc.FetchByKeyAsync(1);
+
         Assert.NotNull(dto);
+        Assert.Equal(1, dto.Week);
     }
 
     [Fact]
     public async Task FetchCountAsync_ReturnsPositiveNumber()
     {
-        var count = await _transumLocSvc.FetchCountAsync();
+        var count = await _transumWkSvc.FetchCountAsync();
+
         Assert.True(count > 0);
     }
 
     [Fact]
     public async Task FetchRandomAsync_ReturnsRandom()
     {
-        var dto = await _transumLocSvc.FetchRandomAsync();
+        var dto = await _transumWkSvc.FetchRandomAsync();
+
         Assert.NotNull(dto);
+        Assert.True(dto.Week is >= 1 and <= 53);
     }
 }
