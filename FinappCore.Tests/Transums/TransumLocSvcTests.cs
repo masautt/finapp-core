@@ -42,7 +42,7 @@ public class TransumLocSvcTests
     [Fact]
     public async Task FetchCountAsync_ReturnsPositiveNumber()
     {
-        var count = await _transumLocSvc.FetchTotalCountAsync();
+        var count = await _transumLocSvc.FetchCountAsync();
         Assert.True(count > 0);
     }
 

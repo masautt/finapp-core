@@ -25,6 +25,16 @@ public static class TransumEntityConfigurations
             entity.Property(e => e.Category).HasColumnName(TransumConstants.Category);
         });
 
+        // TransumCatSub
+        modelBuilder.Entity<TransumCatSubDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumCatSub);
+            entity.HasKey(e => new { e.Category, e.SubCategory });
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.Category).HasColumnName(TransumConstants.Category);
+            entity.Property(e => e.SubCategory).HasColumnName(TransumConstants.SubCategory);
+        });
+
         // TransumLoc
         modelBuilder.Entity<TransumLocDto>(entity =>
         {
@@ -53,6 +63,45 @@ public static class TransumEntityConfigurations
             entity.Property(e => e.SubCategory).HasColumnName(TransumConstants.SubCategory);
         });
 
+        // TransumWk
+        modelBuilder.Entity<TransumWkDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumWk);
+            entity.HasKey(e => e.Week);
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.Week).HasColumnName(TransumConstants.Week);
+        });
+
+        // TransumWkCat
+        modelBuilder.Entity<TransumWkCatDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumWkCat);
+            entity.HasKey(e => new { e.Week, e.Category });
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.Week).HasColumnName(TransumConstants.Week);
+            entity.Property(e => e.Category).HasColumnName(TransumConstants.Category);
+        });
+
+        // TransumWkCatSub
+        modelBuilder.Entity<TransumWkCatSubDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumWkCatSub);
+            entity.HasKey(e => new { e.Week, e.Category, e.SubCategory });
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.Week).HasColumnName(TransumConstants.Week);
+            entity.Property(e => e.Category).HasColumnName(TransumConstants.Category);
+            entity.Property(e => e.SubCategory).HasColumnName(TransumConstants.SubCategory);
+        });
+
+        // TransumYr
+        modelBuilder.Entity<TransumYrDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumYr);
+            entity.HasKey(e => e.Year);
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.Year).HasColumnName(TransumConstants.Year);
+        });
+
         // TransumYrCat
         modelBuilder.Entity<TransumYrCatDto>(entity =>
         {
@@ -63,13 +112,15 @@ public static class TransumEntityConfigurations
             entity.Property(e => e.Category).HasColumnName(TransumConstants.Category);
         });
 
-        // TransumYr
-        modelBuilder.Entity<TransumYrDto>(entity =>
+        // TransumYrCatSub
+        modelBuilder.Entity<TransumYrCatSubDto>(entity =>
         {
-            entity.ToTable(TransumConstants.TransumYr);
-            entity.HasKey(e => e.Year);
+            entity.ToTable(TransumConstants.TransumYrCatSub);
+            entity.HasKey(e => new { e.Year, e.Category, e.SubCategory });
             entity.ConfigureTransumCommon();
             entity.Property(e => e.Year).HasColumnName(TransumConstants.Year);
+            entity.Property(e => e.Category).HasColumnName(TransumConstants.Category);
+            entity.Property(e => e.SubCategory).HasColumnName(TransumConstants.SubCategory);
         });
 
         // TransumYrMo
@@ -91,6 +142,18 @@ public static class TransumEntityConfigurations
             entity.Property(e => e.Year).HasColumnName(TransumConstants.Year);
             entity.Property(e => e.Month).HasColumnName(TransumConstants.Month);
             entity.Property(e => e.Category).HasColumnName(TransumConstants.Category);
+        });
+
+        // TransumYrMoCatSub
+        modelBuilder.Entity<TransumYrMoCatSubDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumYrMoCatSub);
+            entity.HasKey(e => new { e.Year, e.Month, e.Category, e.SubCategory });
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.Year).HasColumnName(TransumConstants.Year);
+            entity.Property(e => e.Month).HasColumnName(TransumConstants.Month);
+            entity.Property(e => e.Category).HasColumnName(TransumConstants.Category);
+            entity.Property(e => e.SubCategory).HasColumnName(TransumConstants.SubCategory);
         });
 
         // TransumYrMoDa
@@ -125,6 +188,39 @@ public static class TransumEntityConfigurations
             entity.Property(e => e.Year).HasColumnName(TransumConstants.Year);
             entity.Property(e => e.Month).HasColumnName(TransumConstants.Month);
             entity.Property(e => e.Day).HasColumnName(TransumConstants.Day);
+            entity.Property(e => e.Category).HasColumnName(TransumConstants.Category);
+            entity.Property(e => e.SubCategory).HasColumnName(TransumConstants.SubCategory);
+        });
+
+        // TransumYrWk
+        modelBuilder.Entity<TransumYrWkDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumYrWk);
+            entity.HasKey(e => new { e.Year, e.Week });
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.Year).HasColumnName(TransumConstants.Year);
+            entity.Property(e => e.Week).HasColumnName(TransumConstants.Week);
+        });
+
+        // TransumYrWkCat
+        modelBuilder.Entity<TransumYrWkCatDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumYrWkCat);
+            entity.HasKey(e => new { e.Year, e.Week, e.Category });
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.Year).HasColumnName(TransumConstants.Year);
+            entity.Property(e => e.Week).HasColumnName(TransumConstants.Week);
+            entity.Property(e => e.Category).HasColumnName(TransumConstants.Category);
+        });
+
+        // TransumYrWkCatSub
+        modelBuilder.Entity<TransumYrWkCatSubDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumYrWkCatSub);
+            entity.HasKey(e => new { e.Year, e.Week, e.Category, e.SubCategory });
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.Year).HasColumnName(TransumConstants.Year);
+            entity.Property(e => e.Week).HasColumnName(TransumConstants.Week);
             entity.Property(e => e.Category).HasColumnName(TransumConstants.Category);
             entity.Property(e => e.SubCategory).HasColumnName(TransumConstants.SubCategory);
         });

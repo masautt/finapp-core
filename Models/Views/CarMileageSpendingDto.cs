@@ -1,4 +1,5 @@
 ﻿using Models.Tables;
+using Models.Tables.Shared;
 
 namespace Models.Views;
 
