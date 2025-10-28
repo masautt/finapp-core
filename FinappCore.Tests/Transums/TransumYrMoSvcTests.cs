@@ -15,10 +15,10 @@ public class TransumYrMoSvcTests
     {
         var provider = TestServiceInitializer.GetServiceProvider();
         if (provider == null)
-            throw new InvalidOperationException("Service provider could not be initialized.");
+            throw new InvalidOperationException(TestConstants.ServiceProviderInitError);
 
         var dbContext = provider.GetRequiredService<AppDbContext>();
-        _transumYrMoSvc = TransumServices.YrMo(dbContext); // returns object key
+        _transumYrMoSvc = TransumServices.YrMo(dbContext);
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public class TransumYrMoSvcTests
     [Fact]
     public async Task GetByYearMonth_ReturnsDto()
     {
-        var key = new { Year = 2025, Month = "jan" }; // composite key
+        var key = new { Year = 2025, Month = "jan" };
         var dto = await _transumYrMoSvc.FetchByKeyAsync(key);
         Assert.NotNull(dto);
         Assert.IsType<TransumYrMoDto>(dto);

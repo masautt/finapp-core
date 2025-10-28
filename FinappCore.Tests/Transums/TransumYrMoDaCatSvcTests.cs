@@ -15,7 +15,7 @@ public class TransumYrMoDaCatSvcTests
     {
         var provider = TestServiceInitializer.GetServiceProvider();
         if (provider == null)
-            throw new InvalidOperationException("Service provider could not be initialized.");
+            throw new InvalidOperationException(TestConstants.ServiceProviderInitError);
 
         var dbContext = provider.GetRequiredService<AppDbContext>();
         _transumYrMoDaCatSvc = TransumServices.YrMoDaCat(dbContext);

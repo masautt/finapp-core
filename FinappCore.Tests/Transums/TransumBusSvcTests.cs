@@ -15,7 +15,7 @@ public class TransumBusSvcTests
     {
         var provider = TestServiceInitializer.GetServiceProvider();
         if (provider == null)
-            throw new InvalidOperationException("Service provider could not be initialized.");
+            throw new InvalidOperationException(TestConstants.ServiceProviderInitError);
 
         // Resolve DbContext first
         var dbContext = provider.GetRequiredService<AppDbContext>();

@@ -1,8 +1,6 @@
 ﻿using Database.Tables;
 using Database.Transums;
 using Microsoft.EntityFrameworkCore;
-using Models.Tables;
-using Models.Transums;
 
 namespace Database;
 
