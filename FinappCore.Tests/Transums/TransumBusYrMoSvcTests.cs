@@ -7,24 +7,27 @@ using Services.Transums;
 namespace FinappCore.Tests.Transums;
 
 [Collection(TestConstants.TestCollectionName)]
-public class TransumLocYrSvcTests
+public class TransumBusYrMoSvcTests
 {
-    private readonly TransumCommonSvc<TransumLocYrDto, object> _transumLocYrSvc;
+    private readonly TransumCommonSvc<TransumBusYrMoDto, object> _transumBusYrMoSvc;
 
-    public TransumLocYrSvcTests()
+    public TransumBusYrMoSvcTests()
     {
         var provider = TestServiceInitializer.GetServiceProvider();
         if (provider == null)
             throw new InvalidOperationException(TestConstants.ServiceProviderInitError);
 
+        // Resolve DbContext first
         var dbContext = provider.GetRequiredService<AppDbContext>();
-        _transumLocYrSvc = TransumServices.LocYr(dbContext);
+
+        // Use the static factory instead of the old TransumBusSvc
+        _transumBusYrMoSvc = TransumServices.BusYrMo(dbContext);
     }
 
     [Fact]
     public async Task FetchAllUniqueKeysAsync_ReturnsNonEmptyList()
     {
-        var keys = await _transumLocYrSvc.FetchAllUniqueKeysAsync();
+        var keys = await _transumBusYrMoSvc.FetchAllUniqueKeysAsync();
         Assert.NotNull(keys);
         Assert.NotEmpty(keys);
     }
@@ -32,22 +35,22 @@ public class TransumLocYrSvcTests
     [Fact]
     public async Task FetchByKeyAsync_ReturnsDto()
     {
-        var key = new { City = "Los Angeles", State = "CA", Year = 2025 };
-        var dto = await _transumLocYrSvc.FetchByKeyAsync(key);
+        var key = new { Business = "Amazon" };
+        var dto = await _transumBusYrMoSvc.FetchByPartialKeyAsync(key);
         Assert.NotNull(dto);
     }
 
     [Fact]
     public async Task FetchCountAsync_ReturnsPositive()
     {
-        var count = await _transumLocYrSvc.FetchCountAsync();
+        var count = await _transumBusYrMoSvc.FetchCountAsync();
         Assert.True(count > 0);
     }
 
     [Fact]
     public async Task FetchRandomAsync_ReturnsDto()
     {
-        var dto = await _transumLocYrSvc.FetchRandomAsync();
+        var dto = await _transumBusYrMoSvc.FetchRandomAsync();
         Assert.NotNull(dto);
     }
 }

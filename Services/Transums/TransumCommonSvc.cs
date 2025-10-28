@@ -17,6 +17,11 @@ public class TransumCommonSvc<TEntity, TKey>(TransumCommonRepo<TEntity, TKey> re
         return await repo.FetchByKeyAsync(key);
     }
 
+    public async Task<List<TEntity>> FetchByPartialKeyAsync(object partialKey)
+    {
+        return await repo.FetchByPartialKeyAsync(partialKey);
+    }
+
     public async Task<bool> KeyExistsAsync(TKey key)
     {
         return await repo.KeyExistsAsync(key);

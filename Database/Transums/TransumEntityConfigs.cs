@@ -224,5 +224,49 @@ public static class TransumEntityConfigurations
             entity.Property(e => e.Category).HasColumnName(TransumConstants.Category);
             entity.Property(e => e.SubCategory).HasColumnName(TransumConstants.SubCategory);
         });
+
+        // TransumBusYr
+        modelBuilder.Entity<TransumBusYrDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumBusYr);
+            entity.HasKey(e => new { e.Business, e.Year });
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.Business).HasColumnName(TransumConstants.Business);
+            entity.Property(e => e.Year).HasColumnName(TransumConstants.Year);
+        });
+
+        // TransumBusYrMo
+        modelBuilder.Entity<TransumBusYrMoDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumBusYrMo);
+            entity.HasKey(e => new { e.Business, e.Year, e.Month });
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.Business).HasColumnName(TransumConstants.Business);
+            entity.Property(e => e.Year).HasColumnName(TransumConstants.Year);
+            entity.Property(e => e.Month).HasColumnName(TransumConstants.Month);
+        });
+
+        // TransumLocYr
+        modelBuilder.Entity<TransumLocYrDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumLocYr);
+            entity.HasKey(e => new { e.City, e.State, e.Year });
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.City).HasColumnName(TransumConstants.City);
+            entity.Property(e => e.State).HasColumnName(TransumConstants.State);
+            entity.Property(e => e.Year).HasColumnName(TransumConstants.Year);
+        });
+
+        // TransumLocYrMo
+        modelBuilder.Entity<TransumLocYrMoDto>(entity =>
+        {
+            entity.ToTable(TransumConstants.TransumLocYrMo);
+            entity.HasKey(e => new { e.City, e.State, e.Year, e.Month });
+            entity.ConfigureTransumCommon();
+            entity.Property(e => e.City).HasColumnName(TransumConstants.City);
+            entity.Property(e => e.State).HasColumnName(TransumConstants.State);
+            entity.Property(e => e.Year).HasColumnName(TransumConstants.Year);
+            entity.Property(e => e.Month).HasColumnName(TransumConstants.Month);
+        });
     }
 }

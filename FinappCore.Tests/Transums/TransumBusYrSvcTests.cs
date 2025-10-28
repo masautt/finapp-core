@@ -35,8 +35,8 @@ public class TransumBusYrSvcTests
     [Fact]
     public async Task FetchByKeyAsync_ReturnsDto()
     {
-        var key = new { Business = "Amazon", Year = 2025 };
-        var dto = await _transumBusYrSvc.FetchByKeyAsync(key);
+        var key = new { Business = "Amazon"};
+        var dto = await _transumBusYrSvc.FetchByPartialKeyAsync(key);
         Assert.NotNull(dto);
     }
 

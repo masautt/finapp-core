@@ -53,6 +53,27 @@ public class TransumCommonRepo<TEntity, TKey>(AppDbContext dbContext, Expression
         return await entitySet.SingleOrDefaultAsync(predicate);
     }
 
+    public async Task<List<TEntity>> FetchByPartialKeyAsync(object partialKey)
+    {
+        var entitySet = _dbContext.Set<TEntity>();
+        var parameter = Expression.Parameter(typeof(TEntity), "e");
+        Expression? comparison = null;
+
+        var keyMembers = partialKey.GetType().GetProperties();
+
+        comparison =
+            (from prop in keyMembers
+                let entityProp = Expression.Property(parameter, prop.Name)
+                let keyValue = Expression.Constant(prop.GetValue(partialKey))
+                select Expression.Equal(entityProp, keyValue)).Aggregate(comparison,
+                (current, equals) => current == null ? equals : Expression.AndAlso(current, equals));
+
+        var predicate = Expression.Lambda<Func<TEntity, bool>>(comparison!, parameter);
+
+        return await entitySet.Where(predicate).ToListAsync();
+    }
+
+
     public async Task<bool> KeyExistsAsync(TKey key)
     {
         var entitySet = _dbContext.Set<TEntity>();
