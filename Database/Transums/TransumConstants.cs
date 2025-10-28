@@ -4,14 +4,22 @@ public static class TransumConstants
 {
     // --- Transum Table Names ---
     public const string TransumBus = "transum_bus";
+    public const string TransumBusYr = "transum_busyr";
+    public const string TransumBusYrMo = "transum_busyrmo";
+
     public const string TransumCat = "transum_cat";
     public const string TransumCatSub = "transum_catsub";
+
     public const string TransumLoc = "transum_loc";
+    public const string TransumLocYr = "transum_locyr";
+    public const string TransumLocYrMo = "transum_locyrmo";
+
     public const string TransumMo = "transum_mo";
     public const string TransumSub = "transum_sub";
     public const string TransumWk = "transum_wk";
     public const string TransumWkCat = "transum_wkcat";
     public const string TransumWkCatSub = "transum_wkcatsub";
+
     public const string TransumYr = "transum_yr";
     public const string TransumYrCat = "transum_yrcat";
     public const string TransumYrCatSub = "transum_yrcatsub";
