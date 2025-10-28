@@ -9,6 +9,12 @@ public static class TransumServices
     public static TransumCommonSvc<TransumBusDto, string> Bus(AppDbContext db) =>
         new(new TransumCommonRepo<TransumBusDto, string>(db, t => t.Business));
 
+    public static TransumCommonSvc<TransumBusYrDto, object> BusYr(AppDbContext db) =>
+        new(new TransumCommonRepo<TransumBusYrDto, object>(db, t => new { t.Business, t.Year }));
+
+    public static TransumCommonSvc<TransumBusYrMoDto, object> BusYrMo(AppDbContext db) =>
+        new(new TransumCommonRepo<TransumBusYrMoDto, object>(db, t => new { t.Business, t.Year, t.Month }));
+
     public static TransumCommonSvc<TransumCatDto, string> Cat(AppDbContext db) =>
         new(new TransumCommonRepo<TransumCatDto, string>(db, t => t.Category));
 
@@ -17,6 +23,12 @@ public static class TransumServices
 
     public static TransumCommonSvc<TransumLocDto, object> Loc(AppDbContext db) =>
         new(new TransumCommonRepo<TransumLocDto, object>(db, t => new { t.City, t.State }));
+
+    public static TransumCommonSvc<TransumLocYrDto, object> LocYr(AppDbContext db) =>
+        new(new TransumCommonRepo<TransumLocYrDto, object>(db, t => new { t.City, t.State, t.Year }));
+
+    public static TransumCommonSvc<TransumLocYrMoDto, object> LocYrMo(AppDbContext db) =>
+        new(new TransumCommonRepo<TransumLocYrMoDto, object>(db, t => new { t.City, t.State, t.Year, t.Month }));
 
     public static TransumCommonSvc<TransumMoDto, string> Mo(AppDbContext db) =>
         new(new TransumCommonRepo<TransumMoDto, string>(db, t => t.Month));

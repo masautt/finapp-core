@@ -133,4 +133,32 @@
         public string Category { get; set; } = null!;
         public string SubCategory { get; set; } = null!;
     }
+
+    public class TransumBusYrDto : TransumCommonDto
+    {
+        public string Business { get; set; } = null!;
+        public int Year { get; set; }
+    }
+
+    public class TransumBusYrMoDto : TransumCommonDto
+    {
+        public string Business { get; set; } = null!;
+        public int Year { get; set; }
+        public string Month { get; set; } = null!;
+    }
+
+    public class TransumLocYrDto : TransumCommonDto
+    {
+        public string City { get; set; } = null!;
+        public string State { get; set; } = null!;
+        public int Year { get; set; }
+    }
+
+    public class TransumLocYrMoDto : TransumCommonDto
+    {
+        public string City { get; set; } = null!;
+        public string State { get; set; } = null!;
+        public int Year { get; set; }
+        public string Month { get; set; } = null!;
+    }
 }
